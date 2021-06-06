@@ -23,5 +23,6 @@ $wrapper.onclick = (e) => {
   if (!e.target.matches(".item")) return;
   if (!e.target.classList.contains("open"))
     removeAllClass(e.currentTarget.children, "open");
+  e.stopPropagation()
   e.target.classList.toggle("open");
 };
