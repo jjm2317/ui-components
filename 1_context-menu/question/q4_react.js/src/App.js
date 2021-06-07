@@ -6,14 +6,14 @@ import dummyData from "./dummyData";
 export default function App() {
   const [openedIndex, setOpen] = useState(null);
 
-  const togglePopover = index => e => {
+  const togglePopover = (index) => (e) => {
     e.preventDefault();
     e.stopPropagation();
-    // do something here.
+    setOpen(index);
   };
 
   const closeAll = (e) => {
-    // do something here.
+    setOpen(null);
   };
 
   useEffect(() => {
