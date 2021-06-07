@@ -31,3 +31,11 @@
 **memo**
 
 리액트로 구현하는 경우 dom을 직접 제어하지 않고 toggle 되는 context의 id를 상태로 관리한다. 리렌더링 시 id와 일치하는 context component의 toggle 관련 props를 true로 설정해준다.
+
+## Redux
+
+**./principal_13_redux**
+
+Redux의 getState, dispatch 등의 함수 직접 작성
+
+[js로 구현](./principal_13_redux/question/redux.js)
