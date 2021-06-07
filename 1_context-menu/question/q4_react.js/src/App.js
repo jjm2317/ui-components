@@ -9,11 +9,11 @@ export default function App() {
   const togglePopover = (index) => (e) => {
     e.preventDefault();
     e.stopPropagation();
-    setOpen(index);
+    setOpen(openedIndex !== index ? index : null);
   };
 
   const closeAll = (e) => {
-    setOpen(null);
+    if (!e.target.matches("p")) setOpen(null);
   };
 
   useEffect(() => {
