@@ -36,6 +36,10 @@
 
 **./principal_13_redux**
 
-Redux의 getState, dispatch 등의 함수 직접 작성
+Redux의 getState, dispatch 등의 핵심코드 직접 작성
 
 [js로 구현](./principal_13_redux/question/redux.js)
+
+**memo**
+redux라이브러리의 주기능은 store를 생성해주는 createStore함수를 제공하는 것이다.
+getState: createStore 함수내의 상태값을 참조하는 클로져이다.
