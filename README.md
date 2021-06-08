@@ -30,6 +30,10 @@
 
 **memo**
 
+details 태그의 open 어트리뷰트가 유무가 context 를 보여줄 지 말지를 결정
+details를 쓰면 html 제공 동작을 그대로 활용하기 때문에 개발자가 직접 구현하는 것보다 효율적이고 신뢰성이 있다.
+자바스크립트가 동작하지 않는 상황에서도 context menu가 동작하게 할 수 있다.
+
 리액트로 구현하는 경우 dom을 직접 제어하지 않고 toggle 되는 context의 id를 상태로 관리한다. 리렌더링 시 id와 일치하는 context component의 toggle 관련 props를 true로 설정해준다.
 
 ## Redux
