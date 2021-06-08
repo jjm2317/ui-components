@@ -1,0 +1,394 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Case4: React Props</title>
+    <link rel="preconnect" href="https://fonts.gstatic.com" />
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;700&display=swap" rel="stylesheet" />
+
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/gh/Microsoft/vscode/extensions/markdown-language-features/media/highlight.css"
+    />
+    <style>
+      /*
+              ==================== html => MD 작업 시, 꼭! 확인해주세요. ====================
+              1. Markdown All in One : Print current document to HTML 실행. (VScode extension)
+              2. 생성된 README.html에서 body 태그 안에 있는것들을 복사
+              3. 루트 폴더에 README_OOO.md 생성 (OOO : Case 이름)
+              4. ! 자동완성을 통해 기본 html 폼을 만들고, body태그 안에 <2>의 내용 붙여넣기
+              5. font / code style에 관련된 <link>세줄과 <style> 태그 안에 있는 내용 붙여넣기
+              6. 상단 <title> 태그 안에 <h2> 텍스트 삽입
+              7. <code> tag가 줄바꿈 될 때, class명으로 "code-inlineBlock" 넣어주기
+              8. <img>태그 경로 변경해주기
+              [ EXAMPLE ]
+              [ 변경 전 ] : 절대경로로 되어있음
+              <img
+                  width="600px"
+                  src="file:////Users/ming/Desktop/ui-component/case2_InfiniteScroll/example_image.gif"
+                />
+              [ 변경 후 ] : 상대경로로 수정
+              <img
+                  width="600px"
+                  src="./example_image.gif"
+                />
+              8. html 내에 <h3>실행 방법 및 의존성 모듈 설치</h3> 하위 내용 아래와 같이 수정
+              [ EXAMPLE ]
+              [ 변경 전 ] : p에 className 없음
+                <p>
+                  <strong>q1</strong>
+                  경로
+                  <code>./question/q1_js</code>
+                  index.html 열기
+                </p>
+              [ 변경 후 ] : p에 className 있음
+                <p>
+                  <strong>q1</strong>
+                  경로
+                  <code>./question/q1_js</code>
+                  <p class="excute-text">index.html 열기</p>
+                </p>
+          
+          
+              [ 변경 전 ] : p태그와 pre태그가 div로 감싸져있지 않음
+                <p>
+                  <strong>q4</strong>
+                  경로
+                  <code>./question/q4_react.js</code>
+                </p>
+          
+                <p>터미널</p>
+                <pre><code class="language-bash"><div>  $ npm install
+                $ npm start
+              </div></code></pre>
+          
+              [ 변경 후 ] : p태그와 pre태그가 div.code-wrap 으로 감싸져있음
+                <p>
+                  <strong>q4</strong>
+                  경로
+                  <code>./question/q4_react.js</code>
+                </p>
+          
+                <div class="code-wrap">
+                <p>터미널</p>
+                <pre>
+                  <code class="language-bash"><div>  $ npm install
+              $ npm start
+            </div></code></pre>
+            </div>
+            */
+
+      html {
+        overflow-x: hidden;
+      }
+
+      body {
+        font-family: 'Noto Sans KR', sans-serif;
+      }
+
+      h1,
+      h2,
+      h3,
+      h4,
+      h5,
+      h6,
+      ul,
+      ol,
+      li,
+      dl,
+      dt,
+      dd,
+      p,
+      table {
+        margin: 0;
+        padding: 0;
+        color: #494949;
+        letter-spacing: -0.025rem;
+        box-sizing: border-box;
+      }
+
+      h1,
+      h2,
+      h3,
+      h4,
+      h5,
+      h6 {
+        font-weight: 600;
+      }
+
+      a {
+        color: blue;
+      }
+
+      a img {
+        border: none;
+      }
+
+      img {
+        max-width: 100%;
+        vertical-align: middle;
+      }
+
+      ul li {
+        list-style: none;
+      }
+
+      ul > li > ul {
+        margin: 0;
+        padding: 15px;
+      }
+      ul > li > ul > li {
+        list-style: circle;
+        margin-left: 25px;
+      }
+
+      p {
+        line-height: 1.8;
+      }
+      /* STYLE */
+
+      body {
+        padding: 0;
+        margin: 0;
+        line-height: 1.6;
+      }
+
+      h2 {
+        padding: 50px 0;
+        color: #ffffff;
+        font-size: 2rem;
+        text-align: center;
+        background: linear-gradient(45deg, #ed234b, #ff6c89, #ff6fb7);
+      }
+
+      h2::before {
+        content: '#';
+        display: inline-block;
+        margin-right: 5px;
+        color: #ff9db0;
+        font-weight: 300;
+        font-size: 2.2rem;
+      }
+
+      h3 {
+        position: relative;
+        margin: 30px 20px;
+        padding-bottom: 15px;
+        color: #303030;
+        font-size: 1.6rem;
+        border-bottom: 1px solid #ededed;
+      }
+
+      blockquote {
+        margin: 20px;
+        padding: 20px;
+        background: #f2f2f2;
+      }
+
+      strong {
+        display: block;
+        margin-top: 10px;
+      }
+
+      .code-wrap {
+        position: relative;
+        background: #2f303b;
+        margin: 15px 0 0 0;
+      }
+
+      .code-wrap > p {
+        position: absolute;
+        left: 0;
+        top: 0;
+        padding: 2px 15px;
+        font-size: 0.7rem;
+        color: #ffffff;
+        text-align: center;
+        background: #61c8cc;
+      }
+
+      code {
+        background: #ededed;
+      }
+
+      .language-html > div,
+      .language-css > div,
+      .language-scss > div,
+      .language-js > div {
+        color: #fff;
+        padding: 30px 20px;
+        background: #2f303b;
+      }
+
+      code.language-bash div {
+        margin-top: -20px;
+        padding: 30px 20px;
+        font-size: 1rem;
+        color: #ffffff;
+        background: #2f303b;
+        box-sizing: border-box;
+      }
+
+      code::after {
+        content: '';
+        display: block;
+      }
+
+      code.code-inlineBlock::after {
+        content: '';
+        display: inline-block;
+      }
+
+      .excute-text {
+        font-size: 0.8rem;
+        font-weight: bold;
+        color: #ed234b;
+      }
+      /* 좌, 우 여백 */
+
+      ol,
+      ul {
+        margin: 20px;
+        padding: 20px;
+        background: #f2f2f2;
+      }
+
+      ol li {
+        margin-left: 15px;
+      }
+
+      li {
+        font-size: 0.85rem;
+      }
+
+      h4,
+      h5,
+      h6,
+      p,
+      img,
+      pre {
+        padding: 0 20px;
+      }
+    </style>
+  </head>
+  <body>
+    <h2 id="case5-react-props">Case4: React Props</h2>
+    <h3 id="케이스-주제">케이스 주제</h3>
+    <p>
+      React Component는 Props 라는 불변(immutable) 객체를 받습니다.<br />이 Props는 Properties를 의미하며 컴포넌트
+      트리에서 항상 위에서 아래로만 흐르는 단방향 특성을 갖습니다.<br />
+      그리고 컴포넌트는 전달받은 Props를 변경할 수 없습니다.<br />
+      이는 React가 컴포넌트를 Props 라는 arguments를 받아 UI 정보를 반환하는 하나의 단순한 함수로 바라보는 철학에서
+      비롯된 것입니다.<br />
+      다시 말해, 어떤 컴포넌트에 동일한 Props를 전달하면 항상 동일한 UI 결과가 나올 것이라고 확신할 수 있고<br />
+      이 높은 확신에서 UI를 더 선언적으로 바라보게 되는 점, 코드 가독성 향상, 테스트하기 쉬운 점 등의 이점을 얻게
+      됩니다.
+    </p>
+    <br />
+    <h3 id="문제">문제</h3>
+    <p>Q. Props에 받아 렌더링을 하는 React Function Component를 만들어서 렌더링 해보세요.</p>
+    <br />
+    <h3 id="요구-및-참고사항">요구 및 참고사항</h3>
+    <ul>
+      <li>
+        DogCard 라는 함수 컴포넌트를 독립된 파일로 만듭니다.
+        <ul>
+          <li>이 컴포넌트는 name, imageUrl, age, breed, owner라는 Props를 받습니다.</li>
+          <li>한번 렌더링이 되면 props와 만들어진 element를 캐쉬합니다.</li>
+          <li>여러번 렌더링 되었을때 Props가 바뀌지 않았으면(캐쉬한 props와 비교) 리렌더링을 하지 않습니다.</li>
+          <li>전달받은 Props가 immutable 한지 검사하고, immutable 하지 않다면 에러를 방출합니다.</li>
+        </ul>
+      </li>
+      <li>이 DogCard 컴포넌트를 렌더링하는 App 컴포넌트를 만듭니다.</li>
+      <li>
+        컴포넌트와 컨테이너 두 파라미터를 받아서 id가 root인 div tag에 컴포넌트를 렌더링하는 render 함수를 만들어
+        활용합니다.
+      </li>
+      <li>
+        App 컴포넌트 또는 DogCard 컴포넌트를 최소한 두번 리렌더링 합니다.
+        <ul>
+          <li>DogCard 컴포넌트에 같은 Props를 전달했을때와</li>
+          <li>
+            같은 Props를 전달했을때를 비교합니다. 같은 Props를 전달해서 두번 이상 리렌더링하면 DogCard 컴포넌트는 한번만
+            렌더링 되어야 합니다.
+          </li>
+        </ul>
+      </li>
+    </ul>
+    <br />
+    <h3 id="기능-작동-이미지">기능 작동 이미지</h3>
+    <p><img src="./example.png" alt="example_image" /></p>
+    <br />
+
+    <h3 id="주요-학습-키워드">주요 학습 키워드</h3>
+    <ul>
+      <li>
+        JavaScript
+        <ul>
+          <li>
+            Function
+            <ul>
+              <li>Function Parameter Validation</li>
+            </ul>
+          </li>
+          <li>Object.seal() &amp; Object.isSealed()</li>
+          <li>Object.freeze() &amp; Object.isFrozen()</li>
+          <li>Object.getOwnPropertyDescriptor()</li>
+        </ul>
+      </li>
+    </ul>
+    <br />
+    <h3 id="참고-문서">참고 문서</h3>
+    <ul>
+      <li>
+        Why are React props immutable?: <br /><a
+          href="https://stackoverflow.com/questions/47471131/why-are-react-props-immutable"
+          >https://stackoverflow.com/questions/47471131/why-are-react-props-immutable</a
+        >
+      </li>
+      <li>
+        Props vs. State
+        <ul>
+          <li>
+            <a href="https://lucybain.com/blog/2016/react-state-vs-pros/"
+              >https://lucybain.com/blog/2016/react-state-vs-pros/</a
+            >
+          </li>
+          <li>
+            <a href="https://github.com/uberVU/react-guide/blob/master/props-vs-state.html"
+              >https://github.com/uberVU/react-guide/blob/master/props-vs-state.md</a
+            >
+          </li>
+        </ul>
+      </li>
+      <li>
+        Difference between freeze and seal: <br /><a
+          href="https://stackoverflow.com/questions/21402108/difference-between-freeze-and-seal"
+          >https://stackoverflow.com/questions/21402108/difference-between-freeze-and-seal</a
+        >
+      </li>
+      <li>
+        Object.getOwnPropertyDescriptor(): <br /><a
+          href="https://developer.mozilla.org/ko/docs/Web/JavaScript/Reference/Global_Objects/Object/getOwnPropertyDescriptor"
+          >https://developer.mozilla.org/ko/docs/Web/JavaScript/Reference/Global_Objects/Object/getOwnPropertyDescriptor</a
+        >
+      </li>
+    </ul>
+    <br />
+    <h3 id="작성해주셔야-하는-question-파일-경로">작성해주셔야 하는 question 파일 경로</h3>
+    <p><code>./question/index.js</code></p>
+    <p><code>./question/React.js</code></p>
+    <p><code>./question/DogCard.js</code></p>
+    <br />
+    <h3 id="실행-방법">실행 방법</h3>
+    <p>
+      경로
+      <code>./question</code>
+      index.html 파일을 브라우저로 열거나 로컬 웹 서버로 실행하기
+    </p>
+    <pre><code class="language-shell"><div><span class="hljs-meta">$</span><span class="bash"> npx serve -l 3000</span>
+</div></code></pre>
+  </body>
+</html>

@@ -1,0 +1,412 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Case10: React State Update & Immutability</title>
+    <link rel="preconnect" href="https://fonts.gstatic.com" />
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;700&display=swap" rel="stylesheet" />
+
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/gh/Microsoft/vscode/extensions/markdown-language-features/media/highlight.css"
+    />
+    <style>
+      /*
+              ==================== html => MD 작업 시, 꼭! 확인해주세요. ====================
+              1. Markdown All in One : Print current document to HTML 실행. (VScode extension)
+              2. 생성된 README.html에서 body 태그 안에 있는것들을 복사
+              3. 루트 폴더에 README_OOO.md 생성 (OOO : Case 이름)
+              4. ! 자동완성을 통해 기본 html 폼을 만들고, body태그 안에 <2>의 내용 붙여넣기
+              5. font / code style에 관련된 <link>세줄과 <style> 태그 안에 있는 내용 붙여넣기
+              6. 상단 <title> 태그 안에 <h2> 텍스트 삽입
+              7. <code> tag가 줄바꿈 될 때, class명으로 "code-inlineBlock" 넣어주기
+              8. <img>태그 경로 변경해주기
+              [ EXAMPLE ]
+              [ 변경 전 ] : 절대경로로 되어있음
+              <img
+                  width="600px"
+                  src="file:////Users/ming/Desktop/ui-component/case2_InfiniteScroll/example_image.gif"
+                />
+              [ 변경 후 ] : 상대경로로 수정
+              <img
+                  width="600px"
+                  src="./example_image.gif"
+                />
+              8. html 내에 <h3>실행 방법 및 의존성 모듈 설치</h3> 하위 내용 아래와 같이 수정
+              [ EXAMPLE ]
+              [ 변경 전 ] : p에 className 없음
+                <p>
+                  <strong>q1</strong>
+                  경로
+                  <code>./question/q1_js</code>
+                  index.html 열기
+                </p>
+              [ 변경 후 ] : p에 className 있음
+                <p>
+                  <strong>q1</strong>
+                  경로
+                  <code>./question/q1_js</code>
+                  <p class="excute-text">index.html 열기</p>
+                </p>
+          
+          
+              [ 변경 전 ] : p태그와 pre태그가 div로 감싸져있지 않음
+                <p>
+                  <strong>q4</strong>
+                  경로
+                  <code>./question/q4_react.js</code>
+                </p>
+          
+                <p>터미널</p>
+                <pre><code class="language-bash"><div>  $ npm install
+                $ npm start
+              </div></code></pre>
+          
+              [ 변경 후 ] : p태그와 pre태그가 div.code-wrap 으로 감싸져있음
+                <p>
+                  <strong>q4</strong>
+                  경로
+                  <code>./question/q4_react.js</code>
+                </p>
+          
+                <div class="code-wrap">
+                <p>터미널</p>
+                <pre>
+                  <code class="language-bash"><div>  $ npm install
+              $ npm start
+            </div></code></pre>
+            </div>
+            */
+
+      html {
+        overflow-x: hidden;
+        padding-bottom: 30px;
+      }
+
+      body {
+        font-family: 'Noto Sans KR', sans-serif;
+      }
+
+      h1,
+      h2,
+      h3,
+      h4,
+      h5,
+      h6,
+      ul,
+      ol,
+      li,
+      dl,
+      dt,
+      dd,
+      p,
+      table {
+        margin: 0;
+        padding: 0;
+        color: #494949;
+        letter-spacing: -0.025rem;
+        box-sizing: border-box;
+      }
+
+      h1,
+      h2,
+      h3,
+      h4,
+      h5,
+      h6 {
+        font-weight: 600;
+      }
+
+      a {
+        color: blue;
+      }
+
+      a img {
+        border: none;
+      }
+
+      img {
+        max-width: 100%;
+        vertical-align: middle;
+      }
+      img:nth-of-type(1) {
+        max-width: 50%;
+        display: block;
+        margin: 30px 0;
+      }
+
+      ul li {
+        list-style: none;
+      }
+
+      ul > li > ul {
+        margin: 0;
+        padding: 15px;
+      }
+      ul > li > ul > li {
+        list-style: circle;
+        margin-left: 25px;
+      }
+
+      ol > li > ul {
+        margin: 0;
+        padding: 15px;
+      }
+      ol > li > ul > li {
+        list-style: circle;
+        margin-left: 25px;
+      }
+
+      p {
+        line-height: 1.8;
+      }
+      /* STYLE */
+
+      body {
+        padding: 0;
+        margin: 0;
+        line-height: 1.6;
+      }
+
+      h2 {
+        padding: 50px 0;
+        color: #ffffff;
+        font-size: 2rem;
+        text-align: center;
+        background: linear-gradient(45deg, #ed234b, #ff6c89, #ff6fb7);
+      }
+
+      h2::before {
+        content: '#';
+        display: inline-block;
+        margin-right: 5px;
+        color: #ff9db0;
+        font-weight: 300;
+        font-size: 2.2rem;
+      }
+
+      h3 {
+        position: relative;
+        margin: 30px 20px;
+        padding-bottom: 15px;
+        color: #303030;
+        font-size: 1.6rem;
+        border-bottom: 1px solid #ededed;
+      }
+
+      blockquote {
+        margin: 20px;
+        padding: 20px;
+        background: #f2f2f2;
+      }
+
+      strong {
+        display: block;
+        margin-top: 10px;
+      }
+
+      .code-wrap {
+        position: relative;
+        background: #2f303b;
+        margin: 15px 0 0 0;
+      }
+
+      .code-wrap > p {
+        position: absolute;
+        left: 0;
+        top: 0;
+        padding: 2px 15px;
+        font-size: 0.7rem;
+        color: #ffffff;
+        text-align: center;
+        background: #61c8cc;
+      }
+
+      code {
+        background: #ededed;
+      }
+
+      .language-html > div,
+      .language-css > div,
+      .language-scss > div,
+      .language-js > div {
+        color: #fff;
+        padding: 30px 20px;
+        background: #2f303b;
+      }
+
+      code.language-bash div {
+        margin-top: -20px;
+        padding: 30px 20px;
+        font-size: 1rem;
+        color: #ffffff;
+        background: #2f303b;
+        box-sizing: border-box;
+      }
+
+      code::after {
+        content: '';
+        display: block;
+      }
+
+      code.code-inlineBlock::after {
+        content: '';
+        display: inline-block;
+      }
+
+      .excute-text {
+        font-size: 0.8rem;
+        font-weight: bold;
+        color: #ed234b;
+      }
+      /* 좌, 우 여백 */
+
+      ol,
+      ul {
+        margin: 20px;
+        padding: 20px;
+        background: #f2f2f2;
+      }
+
+      ol li {
+        margin-left: 15px;
+      }
+
+      li {
+        font-size: 0.85rem;
+      }
+
+      h4,
+      h5,
+      h6,
+      p,
+      img,
+      pre {
+        padding: 0 20px;
+      }
+    </style>
+  </head>
+  <body>
+    <h2 id="case12-react-state-update--immutability">Case10: React State Update &amp; Immutability</h2>
+    <br />
+    <h3 id="케이스-주제">케이스 주제</h3>
+    <p>
+      React의 Props와 State는 모두 불변성(immutability)을 유지하는 것이 필요합니다.<br />
+      불변성을 유지하면서 상태를 다루게 되면 이 상태를 다루는 함수 내부에서 side effect가 발생할 염려가 줄어듭니다.<br />
+      함수 내부에서 이 상태를 직접 변경할 수 없어서 추적이 용이해지기 때문입니다.<br />
+      이러한 불변성을 유지함으로써 얻는 이점들 외에도 컴포넌트가 불필요하게 자주 리렌더링 되는 것을 막는 역할을
+      하는데,<br />
+      이전 상태와 다음 상태를 비교할때 객체의 레퍼런스만 비교하는(shallow compare) 값싼 연산으로 리렌더링 여부를
+      결정하는데 큰 도움이 됩니다.<br />
+      상태를 immutable하게 관리하는 것에 대해 알아보기 위해서 간단하게 아래와 같은 형태로 Component 클래스를
+      작성해봅니다.
+    </p>
+    <pre><code class="language-js"><div><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Component</span> </span>{
+      setState(newState) {}
+      render() {}
+    }
+    </div></code></pre>
+    <br />
+    <h3 id="문제">문제</h3>
+    <p>Q. State를 immutable하게 관리하는 React Class Component를 단순한 방식으로 모방해서 만들어보세요.</p>
+    <br />
+    <h3 id="요구-및-참고사항">요구 및 참고사항</h3>
+    <ul>
+      <li>setState와 render 메서드를 갖는 Component 클래스를 만듭니다.</li>
+      <li>
+        setState 메서드는 아래와 같이 작동해야 합니다.
+        <ul>
+          <li>
+            newState 파라미터에 대한 유효성 검사를 합니다.
+            <ul>
+              <li>newState는 객체 또는 함수 타입을 받습니다. 그 외의 타입이 오면 에러를 내도록 합니다.</li>
+            </ul>
+          </li>
+          <li>newState가 객체일 경우에는 this.nextState에 newState를 대입합니다.</li>
+          <li>
+            newState가 함수일 경우에는 newState 함수에 현재 state와 props를 전달해 실행하고 반환된 새 state를
+            this.nextState에 대입합니다.
+          </li>
+          <li>
+            case4 React State 편에서처럼 state를 병합하지 않는 것은 this.state를 immutable 하게 관리할때와 그렇지
+            않을때의 컴포넌트 렌더링 작동에 차이를 두기 위함입니다.
+          </li>
+          <li>
+            마지막으로 this.shouldComponentUpdate(this.nextState) 함수를 실행해 true를 반환했을때만 컴포넌트를 리렌더링
+            하도록 합니다.
+          </li>
+        </ul>
+      </li>
+      <li>
+        이렇게 만든 Component를 import 해서 상속받아 활용하는 코드를 만듭니다.
+        <ul>
+          <li>이 상속해서 만든 컴포넌트에서 setState를 호출해서 리렌더링이 되도록 합니다.</li>
+          <li>
+            이 상속해서 만든 컴포넌트의 render 함수를 단순하게 외부에서 호출하는 것으로 body tag 하위에 렌더링이 되도록
+            합니다.
+          </li>
+          <li>이 컴포넌트에서 shouldComponentUpdate(nextState) {} 메서드를 구현합니다.</li>
+          <li>
+            만약 this.state를 immutable 하게 관리를 하지 않았다면 state를 다른 값으로 업데이트 하더라도 리렌더링이 되지
+            않도록 합니다.
+          </li>
+        </ul>
+      </li>
+    </ul>
+    <br />
+    <h3 id="기능-작동-이미지">기능 작동 이미지</h3>
+    <h4 id="버튼클릭-전">버튼클릭 전</h4>
+    <p>
+      <img src="./example.png" alt="example1" />
+    </p>
+    <h4 id="버튼클릭-후">버튼클릭 후</h4>
+    <p>
+      <img src="./example2.png" alt="example2" />
+    </p>
+    <br />
+
+    <h3 id="주요-학습-키워드">주요 학습 키워드</h3>
+    <ul>
+      <li>
+        JavaScript
+        <ul>
+          <li>Class</li>
+          <li>Arrow Function</li>
+        </ul>
+      </li>
+      <li>Function Parameter Validation</li>
+    </ul>
+    <br />
+    <h3 id="참고-문서">참고 문서</h3>
+    <ul>
+      <li>
+        Using State Correctly:
+        <a href="https://reactjs.org/docs/state-and-lifecycle.html#do-not-modify-state-directly"
+          >https://reactjs.org/docs/state-and-lifecycle.html#do-not-modify-state-directly</a
+        >
+      </li>
+      <li>
+        React state가 불변이어야 하는 이유:
+        <a
+          href="https://ljs0705.medium.com/react-state%EA%B0%80-%EB%B6%88%EB%B3%80%EC%9D%B4%EC%96%B4%EC%95%BC-%ED%95%98%EB%8A%94-%EC%9D%B4%EC%9C%A0-ec2bf09c1021"
+          >https://ljs0705.medium.com/react-state가-불변이어야-하는-이유-ec2bf09c1021</a
+        >
+      </li>
+    </ul>
+    <br />
+    <h3 id="작성해주셔야-하는-question-파일-경로">작성해주셔야 하는 question 파일 경로</h3>
+    <p><code>./question/index.js</code></p>
+    <p><code>./question/React.js</code></p>
+    <br />
+    <h3 id="실행-방법">실행 방법</h3>
+    <p>
+      경로
+      <code>./question</code>
+      index.html 파일을 브라우저로 열거나 로컬 웹 서버로 실행하기
+    </p>
+    <pre><code class="language-shell"><div><span class="hljs-meta">$</span><span class="bash"> npx serve -l 3000</span>
+    </div></code></pre>
+  </body>
+</html>

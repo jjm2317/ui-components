@@ -1,0 +1,475 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Case4 : react props - 출제자 해설</title>
+    <link rel="preconnect" href="https://fonts.gstatic.com" />
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;700&display=swap" rel="stylesheet" />
+
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/gh/Microsoft/vscode/extensions/markdown-language-features/media/highlight.css"
+    />
+    <style>
+      /*
+              ==================== html => MD 작업 시, 꼭! 확인해주세요. ====================
+              1. Markdown All in One : Print current document to HTML 실행. (VScode extension)
+              2. 생성된 README.html에서 body 태그 안에 있는것들을 복사
+              3. 루트 폴더에 README_OOO.md 생성 (OOO : Case 이름)
+              4. ! 자동완성을 통해 기본 html 폼을 만들고, body태그 안에 <2>의 내용 붙여넣기
+              5. font / code style에 관련된 <link>세줄과 <style> 태그 안에 있는 내용 붙여넣기
+              6. 상단 <title> 태그 안에 <h2> 텍스트 삽입
+              7. <code> tag가 줄바꿈 될 때, class명으로 "code-inlineBlock" 넣어주기
+              8. <img>태그 경로 변경해주기
+              [ EXAMPLE ]
+              [ 변경 전 ] : 절대경로로 되어있음
+              <img
+                  width="600px"
+                  src="file:////Users/ming/Desktop/ui-component/case2_InfiniteScroll/example_image.gif"
+                />
+              [ 변경 후 ] : 상대경로로 수정
+              <img
+                  width="600px"
+                  src="./example_image.gif"
+                />
+              8. html 내에 <h3>실행 방법 및 의존성 모듈 설치</h3> 하위 내용 아래와 같이 수정
+              [ EXAMPLE ]
+              [ 변경 전 ] : p에 className 없음
+                <p>
+                  <strong>q1</strong>
+                  경로
+                  <code>./question/q1_js</code>
+                  index.html 열기
+                </p>
+              [ 변경 후 ] : p에 className 있음
+                <p>
+                  <strong>q1</strong>
+                  경로
+                  <code>./question/q1_js</code>
+                  <p class="excute-text">index.html 열기</p>
+                </p>
+          
+          
+              [ 변경 전 ] : p태그와 pre태그가 div로 감싸져있지 않음
+                <p>
+                  <strong>q4</strong>
+                  경로
+                  <code>./question/q4_react.js</code>
+                </p>
+          
+                <p>터미널</p>
+                <pre><code class="language-bash"><div>  $ npm install
+                $ npm start
+              </div></code></pre>
+          
+              [ 변경 후 ] : p태그와 pre태그가 div.code-wrap 으로 감싸져있음
+                <p>
+                  <strong>q4</strong>
+                  경로
+                  <code>./question/q4_react.js</code>
+                </p>
+          
+                <div class="code-wrap">
+                <p>터미널</p>
+                <pre>
+                  <code class="language-bash"><div>  $ npm install
+              $ npm start
+            </div></code></pre>
+            </div>
+            */
+
+      html {
+        overflow-x: hidden;
+        padding-bottom: 30px;
+      }
+
+      body {
+        font-family: 'Noto Sans KR', sans-serif;
+      }
+
+      h1,
+      h2,
+      h3,
+      h4,
+      h5,
+      h6,
+      ul,
+      ol,
+      li,
+      dl,
+      dt,
+      dd,
+      p,
+      table {
+        margin: 0;
+        padding: 0;
+        color: #494949;
+        letter-spacing: -0.025rem;
+        box-sizing: border-box;
+      }
+
+      h1,
+      h2,
+      h3,
+      h4,
+      h5,
+      h6 {
+        font-weight: 600;
+      }
+
+      a {
+        color: blue;
+      }
+
+      a img {
+        border: none;
+      }
+
+      img {
+        max-width: 100%;
+        vertical-align: middle;
+      }
+      img:nth-of-type(1) {
+        max-width: 50%;
+        display: block;
+        margin: 30px 0;
+      }
+
+      ul li {
+        list-style: none;
+      }
+
+      ul > li > ul {
+        margin: 0;
+        padding: 15px;
+      }
+      ul > li > ul > li {
+        list-style: circle;
+        margin-left: 25px;
+      }
+
+      ol > li > ul {
+        margin: 0;
+        padding: 15px;
+      }
+      ol > li > ul > li {
+        list-style: circle;
+        margin-left: 25px;
+      }
+
+      p {
+        line-height: 1.8;
+      }
+      /* STYLE */
+
+      body {
+        padding: 0;
+        margin: 0;
+        line-height: 1.6;
+      }
+
+      h2 {
+        padding: 50px 0;
+        color: #ffffff;
+        font-size: 2rem;
+        text-align: center;
+        background: linear-gradient(45deg, #ed234b, #ff6c89, #ff6fb7);
+      }
+
+      h2::before {
+        content: '#';
+        display: inline-block;
+        margin-right: 5px;
+        color: #ff9db0;
+        font-weight: 300;
+        font-size: 2.2rem;
+      }
+
+      h3 {
+        position: relative;
+        margin: 30px 20px;
+        padding-bottom: 15px;
+        color: #303030;
+        font-size: 1.6rem;
+        border-bottom: 1px solid #ededed;
+      }
+
+      blockquote {
+        margin: 20px;
+        padding: 20px;
+        background: #f2f2f2;
+      }
+
+      strong {
+        display: block;
+        margin-top: 10px;
+      }
+
+      .code-wrap {
+        position: relative;
+        background: #2f303b;
+        margin: 15px 0 0 0;
+      }
+
+      .code-wrap > p {
+        position: absolute;
+        left: 0;
+        top: 0;
+        padding: 2px 15px;
+        font-size: 0.7rem;
+        color: #ffffff;
+        text-align: center;
+        background: #61c8cc;
+      }
+
+      code {
+        background: #ededed;
+      }
+
+      .language-html > div,
+      .language-css > div,
+      .language-scss > div,
+      .language-javascript > div,
+      .language-typescript > div {
+        color: #fff;
+        padding: 30px 20px;
+        background: #2f303b;
+      }
+
+      code.language-bash div {
+        margin-top: -20px;
+        padding: 30px 20px;
+        font-size: 1rem;
+        color: #ffffff;
+        background: #2f303b;
+        box-sizing: border-box;
+      }
+
+      code::after {
+        content: '';
+        display: block;
+      }
+
+      code.code-inlineBlock::after {
+        content: '';
+        display: inline-block;
+      }
+
+      .excute-text {
+        font-size: 0.8rem;
+        font-weight: bold;
+        color: #ed234b;
+      }
+      /* 좌, 우 여백 */
+
+      ol,
+      ul {
+        margin: 20px;
+        padding: 20px;
+        background: #f2f2f2;
+      }
+
+      ol li {
+        margin-left: 15px;
+      }
+
+      li {
+        font-size: 0.85rem;
+      }
+
+      h4,
+      h5,
+      h6,
+      p,
+      img,
+      pre {
+        padding: 0 20px;
+      }
+    </style>
+  </head>
+  <body>
+    <h2 id="case5--react-props---출제자-해설">Case4 : react props - 출제자 해설</h2>
+    <h3 id="html">HTML</h3>
+    <pre><code class="language-html"><div><span class="hljs-meta">&lt;!DOCTYPE <span class="hljs-meta-keyword">html</span>&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-name">html</span> <span class="hljs-attr">lang</span>=<span class="hljs-string">&quot;en&quot;</span>&gt;</span>
+  <span class="hljs-tag">&lt;<span class="hljs-name">head</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">meta</span> <span class="hljs-attr">charset</span>=<span class="hljs-string">&quot;UTF-8&quot;</span> /&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">meta</span> <span class="hljs-attr">http-equiv</span>=<span class="hljs-string">&quot;X-UA-Compatible&quot;</span> <span class="hljs-attr">content</span>=<span class="hljs-string">&quot;IE=edge&quot;</span> /&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">meta</span> <span class="hljs-attr">name</span>=<span class="hljs-string">&quot;viewport&quot;</span> <span class="hljs-attr">content</span>=<span class="hljs-string">&quot;width=device-width, initial-scale=1.0&quot;</span> /&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">title</span>&gt;</span>React Props<span class="hljs-tag">&lt;/<span class="hljs-name">title</span>&gt;</span>
+  <span class="hljs-tag">&lt;/<span class="hljs-name">head</span>&gt;</span>
+  <span class="hljs-tag">&lt;<span class="hljs-name">body</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">id</span>=<span class="hljs-string">&quot;root&quot;</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">script</span> <span class="hljs-attr">type</span>=<span class="hljs-string">&quot;module&quot;</span> <span class="hljs-attr">src</span>=<span class="hljs-string">&quot;./index.js&quot;</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">script</span>&gt;</span>
+  <span class="hljs-tag">&lt;/<span class="hljs-name">body</span>&gt;</span>
+<span class="hljs-tag">&lt;/<span class="hljs-name">html</span>&gt;</span>
+</div></code></pre>
+    <h3 id="js">JS</h3>
+    <h4 id="indexjs">index.js</h4>
+    <pre><code class="language-javascript"><div><span class="hljs-keyword">import</span> React <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;./React.js&#x27;</span>
+<span class="hljs-keyword">import</span> DogCard <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;./DogCard.js&#x27;</span>
+
+<span class="hljs-comment">/**
+ * React Component를 Props를 받아 UI를 반환하는 함수로 가정한다.
+ */</span>
+<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">App</span>(<span class="hljs-params">{ propsForDogCard }</span>) </span>{
+  <span class="hljs-keyword">const</span> app = <span class="hljs-built_in">document</span>.createElement(<span class="hljs-string">&#x27;div&#x27;</span>)
+  app.style = <span class="hljs-string">`
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 20px;
+    padding: 15px;
+  `</span>
+
+  <span class="hljs-keyword">const</span> renderedDogCard = DogCard(propsForDogCard)
+  app.appendChild(renderedDogCard)
+
+  <span class="hljs-keyword">return</span> app
+}
+
+<span class="hljs-comment">// Object.seal()</span>
+<span class="hljs-comment">// - 객체에 속성을 추가하거나 제거하는 것을 막는다.</span>
+<span class="hljs-comment">// - 객체를 non-configurable로 만든다. descriptor 변경이 불가능해진다.</span>
+<span class="hljs-comment">// - sealed 된 객체의 값을 변경하면 TypeError를 방출한다.</span>
+<span class="hljs-comment">// Object.freeze()</span>
+<span class="hljs-comment">// - seal()이 하는 일을 똑같이 하며</span>
+<span class="hljs-comment">// - 추가로, 기존의 property들을 변경하는 것을 막는다.</span>
+<span class="hljs-keyword">const</span> propsForDogCard = <span class="hljs-built_in">Object</span>.freeze({
+  <span class="hljs-attr">name</span>: <span class="hljs-string">&#x27;Briton&#x27;</span>,
+  <span class="hljs-attr">imageUrl</span>:
+    <span class="hljs-string">&#x27;https://mblogthumb-phinf.pstatic.net/MjAxODA3MTNfMjQz/MDAxNTMxNDQ3ODcyMTEy.0J44OrI_srCV1Cc2YOUsJ4SUIYcEfbSY-ogTzscKOAYg.BFVU24-KEWT1i16UDzeHxP2zMb76ScvSPa4PGN0Ryqwg.JPEG.senom91/image_9534650361531447585590.jpg?type=w800&#x27;</span>,
+  <span class="hljs-attr">age</span>: <span class="hljs-number">3</span>,
+  <span class="hljs-attr">breed</span>: <span class="hljs-string">&#x27;Golden Retriever&#x27;</span>,
+  <span class="hljs-attr">owner</span>: <span class="hljs-string">&#x27;Charles Brown&#x27;</span>,
+})
+<span class="hljs-comment">// freeze를 하지 않으면 configurable과 writable이 모두 true여서 객체의 속성 변경 및 추가가 가능하다. -&gt; props 로서는 적절하지 않다.</span>
+<span class="hljs-comment">// const propsForDogCard = {</span>
+<span class="hljs-comment">//   name: &#x27;Briton&#x27;,</span>
+<span class="hljs-comment">//   imageUrl: &#x27;https://ww.namu.la/s/db6df9d8f32a265abab22f79f0e954cc056451a76751d1211516f5c02c9af0a7ff0602e3f327ab1f916c2ad4c8cfc00465003ae8251628bec3749ad7b270491d56d7bea705aeb623ef7d89a123f39fe43df9a55299884be20d50f4bb5b6885e9&#x27;,</span>
+<span class="hljs-comment">//   age: 3,</span>
+<span class="hljs-comment">//   breed: &#x27;Golden Retriever&#x27;,</span>
+<span class="hljs-comment">//   owner: &#x27;Charles Brown&#x27;,</span>
+<span class="hljs-comment">// }</span>
+
+<span class="hljs-comment">// 똑같은 props로 세번 렌더링을 해도 DogCard 컴포넌트의 렌더링은 한번만 된다.</span>
+React.render(
+  <span class="hljs-function">() =&gt;</span>
+    App({
+      propsForDogCard,
+    }),
+  <span class="hljs-built_in">document</span>.getElementById(<span class="hljs-string">&#x27;root&#x27;</span>)
+)
+
+React.render(
+  <span class="hljs-function">() =&gt;</span>
+    App({
+      propsForDogCard,
+    }),
+  <span class="hljs-built_in">document</span>.getElementById(<span class="hljs-string">&#x27;root&#x27;</span>)
+)
+
+React.render(
+  <span class="hljs-function">() =&gt;</span>
+    App({
+      propsForDogCard,
+    }),
+  <span class="hljs-built_in">document</span>.getElementById(<span class="hljs-string">&#x27;root&#x27;</span>)
+)
+
+<span class="hljs-comment">// 새로운 props를 전달하면 DogCard 컴포넌트가 두번 렌더링 된다.</span>
+React.render(
+  <span class="hljs-function">() =&gt;</span>
+    App({
+      <span class="hljs-attr">propsForDogCard</span>: <span class="hljs-built_in">Object</span>.freeze({
+        <span class="hljs-attr">name</span>: <span class="hljs-string">&#x27;Charlie&#x27;</span>,
+        <span class="hljs-attr">imageUrl</span>:
+          <span class="hljs-string">&#x27;https://img1.daumcdn.net/thumb/R1280x0.fjpg/?fname=http://t1.daumcdn.net/brunch/service/user/3XvY/image/pF-v9rZiGBquMBQh633BmSm7CUY.jpg&#x27;</span>,
+        <span class="hljs-attr">age</span>: <span class="hljs-number">5</span>,
+        <span class="hljs-attr">breed</span>: <span class="hljs-string">&#x27;Basenji&#x27;</span>,
+        <span class="hljs-attr">owner</span>: <span class="hljs-string">&#x27;Jeffrey&#x27;</span>,
+      }),
+    }),
+  <span class="hljs-built_in">document</span>.getElementById(<span class="hljs-string">&#x27;root&#x27;</span>)
+)
+</div></code></pre>
+    <h4 id="reactjs">React.js</h4>
+    <pre><code class="language-javascript"><div><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">render</span>(<span class="hljs-params">ComponentToRender, container</span>) </span>{
+  <span class="hljs-comment">// Validation</span>
+  <span class="hljs-keyword">if</span> (!container) {
+    <span class="hljs-keyword">throw</span> <span class="hljs-keyword">new</span> <span class="hljs-built_in">Error</span>(<span class="hljs-string">&#x27;Container should be provided to render a component.&#x27;</span>)
+  }
+
+  <span class="hljs-keyword">while</span> (container.firstChild) {
+    container.removeChild(container.lastChild)
+  }
+  container.appendChild(ComponentToRender())
+}
+
+<span class="hljs-keyword">export</span> <span class="hljs-keyword">default</span> {
+  render,
+}
+</div></code></pre>
+    <h4 id="dogcardjs">DogCard.js</h4>
+    <pre><code class="language-javascript"><div><span class="hljs-keyword">let</span> prevProps = <span class="hljs-literal">null</span>
+<span class="hljs-keyword">let</span> prevElement = <span class="hljs-literal">null</span>
+
+<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">DogCard</span>(<span class="hljs-params">props</span>) </span>{
+  <span class="hljs-comment">// Props immutability validation</span>
+  <span class="hljs-keyword">if</span> (<span class="hljs-keyword">typeof</span> props !== <span class="hljs-string">&#x27;object&#x27;</span>) {
+    <span class="hljs-keyword">throw</span> <span class="hljs-keyword">new</span> <span class="hljs-built_in">Error</span>(<span class="hljs-string">&#x27;Props should be an object.&#x27;</span>)
+  }
+
+  <span class="hljs-keyword">const</span> isPropsMutable = <span class="hljs-built_in">Object</span>.keys(props)
+    .map(<span class="hljs-function">(<span class="hljs-params">key</span>) =&gt;</span> <span class="hljs-built_in">Object</span>.getOwnPropertyDescriptor(props, key))
+    .some(<span class="hljs-function">(<span class="hljs-params">descriptor</span>) =&gt;</span> descriptor.configurable || descriptor.writable)
+  <span class="hljs-keyword">if</span> (isPropsMutable || !<span class="hljs-built_in">Object</span>.isFrozen(props) || !<span class="hljs-built_in">Object</span>.isSealed(props)) {
+    <span class="hljs-keyword">throw</span> <span class="hljs-keyword">new</span> <span class="hljs-built_in">Error</span>(<span class="hljs-string">&#x27;Props should be immutable.&#x27;</span>)
+  }
+
+  <span class="hljs-keyword">if</span> (prevProps !== <span class="hljs-literal">null</span>) {
+    <span class="hljs-keyword">const</span> shouldComponentUpdate = <span class="hljs-built_in">Object</span>.keys(prevProps).some(<span class="hljs-function">(<span class="hljs-params">Key</span>) =&gt;</span> prevProps[Key] !== props[Key])
+
+    <span class="hljs-keyword">if</span> (!shouldComponentUpdate) {
+      <span class="hljs-keyword">return</span> prevElement
+    }
+  }
+
+  <span class="hljs-keyword">const</span> dogCard = <span class="hljs-built_in">document</span>.createElement(<span class="hljs-string">&#x27;div&#x27;</span>)
+  dogCard.style = <span class="hljs-string">`
+    display: flex;
+    flex-direction: column;
+    padding: 10px;
+    width: 300px;
+    height: 600px;
+    background-color: ivory;
+    border: 5px solid blue;
+    border-radius: 30px;
+  `</span>
+  dogCard.innerHTML = <span class="hljs-string">`
+    &lt;h1&gt;Name: <span class="hljs-subst">${props.name}</span>&lt;/h1&gt;
+    &lt;/br&gt;
+    &lt;img src=<span class="hljs-subst">${props.imageUrl}</span> alt=&quot;dog&quot; &gt;
+    &lt;/br&gt;
+    &lt;h2&gt;Age: <span class="hljs-subst">${props.age}</span>&lt;/h2&gt;
+    &lt;/br&gt;
+    &lt;h3&gt;Breed: <span class="hljs-subst">${props.breed}</span>&lt;/h3&gt;
+    &lt;/br&gt;
+    &lt;h4&gt;Owner: <span class="hljs-subst">${props.owner}</span>&lt;/h4&gt;
+    &lt;/br&gt;
+  `</span>
+
+  prevProps = props
+  prevElement = dogCard
+
+  <span class="hljs-built_in">console</span>.log(<span class="hljs-string">&#x27;DogCard rendered.&#x27;</span>)
+
+  <span class="hljs-keyword">return</span> dogCard
+}
+
+<span class="hljs-keyword">export</span> <span class="hljs-keyword">default</span> DogCard
+</div></code></pre>
+  </body>
+</html>

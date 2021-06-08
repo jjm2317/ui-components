@@ -1,0 +1,454 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Case1 : JSX를 사용해 생성하는 React Element</title>
+    <link rel="preconnect" href="https://fonts.gstatic.com" />
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;700&display=swap" rel="stylesheet" />
+
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/gh/Microsoft/vscode/extensions/markdown-language-features/media/highlight.css"
+    />
+    <style>
+      /*
+              ==================== html => MD 작업 시, 꼭! 확인해주세요. ====================
+              1. Markdown All in One : Print current document to HTML 실행. (VScode extension)
+              2. 생성된 README.html에서 body 태그 안에 있는것들을 복사
+              3. 루트 폴더에 README_OOO.md 생성 (OOO : Case 이름)
+              4. ! 자동완성을 통해 기본 html 폼을 만들고, body태그 안에 <2>의 내용 붙여넣기
+              5. font / code style에 관련된 <link>세줄과 <style> 태그 안에 있는 내용 붙여넣기
+              6. 상단 <title> 태그 안에 <h2> 텍스트 삽입
+              7. <code> tag가 줄바꿈 될 때, class명으로 "code-inlineBlock" 넣어주기
+              8. <img>태그 경로 변경해주기
+              [ EXAMPLE ]
+              [ 변경 전 ] : 절대경로로 되어있음
+              <img
+                  width="600px"
+                  src="file:////Users/ming/Desktop/ui-component/case2_InfiniteScroll/example_image.gif"
+                />
+              [ 변경 후 ] : 상대경로로 수정
+              <img
+                  width="600px"
+                  src="./example_image.gif"
+                />
+              8. html 내에 <h3>실행 방법 및 의존성 모듈 설치</h3> 하위 내용 아래와 같이 수정
+              [ EXAMPLE ]
+              [ 변경 전 ] : p에 className 없음
+                <p>
+                  <strong>q1</strong>
+                  경로
+                  <code>./question/q1_js</code>
+                  index.html 열기
+                </p>
+              [ 변경 후 ] : p에 className 있음
+                <p>
+                  <strong>q1</strong>
+                  경로
+                  <code>./question/q1_js</code>
+                  <p class="excute-text">index.html 열기</p>
+                </p>
+          
+          
+              [ 변경 전 ] : p태그와 pre태그가 div로 감싸져있지 않음
+                <p>
+                  <strong>q4</strong>
+                  경로
+                  <code>./question/q4_react.js</code>
+                </p>
+          
+                <p>터미널</p>
+                <pre><code class="language-bash"><div>  $ npm install
+                $ npm start
+              </div></code></pre>
+          
+              [ 변경 후 ] : p태그와 pre태그가 div.code-wrap 으로 감싸져있음
+                <p>
+                  <strong>q4</strong>
+                  경로
+                  <code>./question/q4_react.js</code>
+                </p>
+          
+                <div class="code-wrap">
+                <p>터미널</p>
+                <pre>
+                  <code class="language-bash"><div>  $ npm install
+              $ npm start
+            </div></code></pre>
+            </div>
+            */
+
+      html {
+        overflow-x: hidden;
+        padding-bottom: 30px;
+      }
+
+      body {
+        font-family: 'Noto Sans KR', sans-serif;
+      }
+
+      h1,
+      h2,
+      h3,
+      h4,
+      h5,
+      h6,
+      ul,
+      ol,
+      li,
+      dl,
+      dt,
+      dd,
+      p,
+      table {
+        margin: 0;
+        padding: 0;
+        color: #494949;
+        letter-spacing: -0.025rem;
+        box-sizing: border-box;
+      }
+
+      h1,
+      h2,
+      h3,
+      h4,
+      h5,
+      h6 {
+        font-weight: 600;
+      }
+
+      a {
+        color: blue;
+      }
+
+      a img {
+        border: none;
+      }
+
+      img {
+        max-width: 100%;
+        vertical-align: middle;
+      }
+      img:nth-of-type(1) {
+        max-width: 100%;
+        display: block;
+        margin: 30px 0;
+      }
+
+      ul li {
+        list-style: none;
+      }
+
+      ul > li > ul {
+        margin: 0;
+        padding: 15px;
+      }
+      ul > li > ul > li {
+        list-style: circle;
+        margin-left: 25px;
+      }
+
+      ol > li > ul {
+        margin: 0;
+        padding: 15px;
+      }
+      ol > li > ul > li {
+        list-style: circle;
+        margin-left: 25px;
+      }
+
+      ul > li > ol {
+        margin: 0;
+        padding: 0;
+      }
+
+      p {
+        line-height: 1.8;
+      }
+      /* STYLE */
+
+      body {
+        padding: 0;
+        margin: 0;
+        line-height: 1.6;
+      }
+
+      h2 {
+        padding: 50px 0;
+        color: #ffffff;
+        font-size: 2rem;
+        text-align: center;
+        background: linear-gradient(45deg, #ed234b, #ff6c89, #ff6fb7);
+      }
+
+      h2::before {
+        content: '#';
+        display: inline-block;
+        margin-right: 5px;
+        color: #ff9db0;
+        font-weight: 300;
+        font-size: 2.2rem;
+      }
+
+      h3 {
+        position: relative;
+        margin: 30px 20px;
+        padding-bottom: 15px;
+        color: #303030;
+        font-size: 1.6rem;
+        border-bottom: 1px solid #ededed;
+      }
+
+      blockquote {
+        margin: 20px;
+        padding: 20px;
+        background: #f2f2f2;
+      }
+
+      strong {
+        /* display: block; */
+        margin-top: 10px;
+      }
+
+      .code-wrap {
+        position: relative;
+        background: #2f303b;
+        margin: 15px 0 0 0;
+      }
+
+      .code-wrap > p {
+        position: absolute;
+        left: 0;
+        top: 0;
+        padding: 2px 15px;
+        font-size: 0.7rem;
+        color: #ffffff;
+        text-align: center;
+        background: #61c8cc;
+      }
+
+      code {
+        background: #ededed;
+      }
+
+      .language-html > div,
+      .language-css > div,
+      .language-scss > div,
+      .language-javascript > div,
+      .language-js > div,
+      .language-json > div,
+      .language-typescript > div {
+        color: #fff;
+        padding: 30px 20px;
+        background: #2f303b;
+      }
+
+      code.language-bash div {
+        margin-top: -20px;
+        padding: 30px 20px;
+        font-size: 1rem;
+        color: #ffffff;
+        background: #2f303b;
+        box-sizing: border-box;
+      }
+
+      code::after {
+        content: '';
+        /* display: block; */
+      }
+
+      code.code-inlineBlock::after {
+        content: '';
+        display: inline-block;
+      }
+
+      .excute-text {
+        font-size: 0.8rem;
+        font-weight: bold;
+        color: #ed234b;
+      }
+      /* 좌, 우 여백 */
+
+      ol,
+      ul {
+        margin: 20px;
+        padding: 20px;
+        background: #f2f2f2;
+      }
+
+      ol li {
+        margin-left: 15px;
+      }
+
+      li {
+        font-size: 0.85rem;
+      }
+
+      h4,
+      h5,
+      h6,
+      p,
+      img,
+      pre {
+        padding: 0 20px;
+      }
+    </style>
+  </head>
+  <body>
+    <h2 id="case1--jsx를-사용해-생성하는-react-element">Case1 : JSX를 사용해 생성하는 React Element</h2>
+    <br />
+    <h3 id="케이스-주제">케이스 주제</h3>
+    <h4 id="jsx">JSX</h4>
+    <p>
+      페이스북의 React 개발팀에서 <strong>React</strong> 를 소개할 때 3가지를 중점으로 설명합니다.<br> (<em
+        >선언형, 컴포넌트 기반, 한 번 배워서 어디서나 사용하기</em
+      >)
+    </p>
+    <p>그중에서도 <strong>Declarative</strong> (선언형)은 이번 주제와 깊은 연관성이 있는데요</p>
+    <p>
+      프론트엔드 개발을 하다 보면 유저 인터렉션이 많은 UI를 만들 때 어려움이 발생합니다.<br />
+      이에 대응하여 React 는 데이터 변경에 알아서 렌더링 할 수 있는 방법을 제공하고 개발자가 각 상태에 대한 뷰만 설계할
+      수 있도록 돕습니다.
+    </p>
+    <p>
+      구체적으로 <strong>Declarative (선언형) View</strong> 를 작성하여 예측 가능한 코드로 드러내는 것을 위해 사용할 수
+      있는 것이 <strong>JSX</strong> 입니다.
+    </p>
+    <p>
+      <strong>JSX(Javascript XML)</strong> 는 마치 <strong>HTML</strong> 처럼 보이지만 <strong>JavaScript</strong> 로
+      인식할 수 있습니다.
+    </p>
+    <p>
+      이러한 동작이 가능하기 위해 내부적으로 다양한 동작을 하겠지만 기본적으로 <strong>Babel</strong> 이라는 도구를
+      활용해 트랜스파일링 할 수 있습니다.
+    </p>
+    <br />
+    <h4 id="reactcreateelement">React.createElement</h4>
+    <p>
+      React를 처음 접할 때 <strong>JSX</strong> 만으로 컴포넌트를 작성했다면 <code>React.createElement</code>를 알지
+      못하더라도 큰 문제는 없습니다.
+    </p>
+    <p>
+      사실 <strong>JSX</strong> 는 <code>React.createElement()</code>의 <strong>Syntactic Sugar</strong> (문법적
+      설탕)이기 때문입니다.
+    </p>
+    <p>
+      기본적으로 <code>React.createElement()</code>는 네이밍에서 알 수 있는 의미 그대로
+      <strong>React Element</strong> 를 생성하고 반환합니다.
+    </p>
+    <p>또한 <strong>React Element</strong> 는 React에서 가장 작은 단위라고도 할 수 있습니다.</p>
+    <br />
+    <h3 id="기능요구사항">기능요구사항</h3>
+    <ol>
+      <li>React.createElement를 구현하기</li>
+      <li>JSX Element를 JSON 포맷으로 표시하기</li>
+    </ol>
+    <br />
+    <pre><code class="language-js"><div><span class="hljs-comment">// JSX Element</span>
+  <span class="hljs-keyword">const</span> element = (
+    <span class="xml"><span class="hljs-tag">&lt;<span class="hljs-name">div</span>&gt;</span>
+      <span class="hljs-tag">&lt;<span class="hljs-name">h1</span>&gt;</span>Hello World<span class="hljs-tag">&lt;/<span class="hljs-name">h1</span>&gt;</span>
+    <span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span></span>
+  )
+  </div></code></pre>
+    <pre><code class="language-js"><div><span class="hljs-comment">// React.createElement()</span>
+  <span class="hljs-keyword">const</span> element = React.createElement(<span class="hljs-string">&#x27;div&#x27;</span>, <span class="hljs-literal">null</span>, React.createElement(<span class="hljs-string">&#x27;h1&#x27;</span>, <span class="hljs-literal">null</span>, <span class="hljs-string">&#x27;Hello World&#x27;</span>))
+  </div></code></pre>
+    <h4 id="json-포맷">JSON 포맷</h4>
+    <pre><code class="language-json"><div>{
+    <span class="hljs-attr">&quot;type&quot;</span>: {
+      <span class="hljs-attr">&quot;type&quot;</span>: <span class="hljs-string">&quot;div&quot;</span>,
+      <span class="hljs-attr">&quot;props&quot;</span>: {
+        <span class="hljs-attr">&quot;children&quot;</span>: [
+          {
+            <span class="hljs-attr">&quot;type&quot;</span>: <span class="hljs-string">&quot;h1&quot;</span>,
+            <span class="hljs-attr">&quot;props&quot;</span>: {
+              <span class="hljs-attr">&quot;children&quot;</span>: [
+                {
+                  <span class="hljs-attr">&quot;type&quot;</span>: <span class="hljs-string">&quot;TEXT_ELEMENT&quot;</span>,
+                  <span class="hljs-attr">&quot;props&quot;</span>: {
+                    <span class="hljs-attr">&quot;nodeValue&quot;</span>: <span class="hljs-string">&quot;Hello World&quot;</span>,
+                    <span class="hljs-attr">&quot;children&quot;</span>: []
+                  }
+                }
+              ]
+            }
+          }
+        ]
+      }
+    },
+    <span class="hljs-attr">&quot;props&quot;</span>: {
+      <span class="hljs-attr">&quot;children&quot;</span>: []
+    }
+  }
+  </div></code></pre>
+    <br />
+    <h3 id="기능작동이미지">기능작동이미지</h3>
+    <p>
+      <img src="./example.png" alt="example" />
+      <br />
+    </p>
+    <h3 id="문제">문제</h3>
+    <ul>
+      <li>
+      JSX Element를 JSON</code> 포맷으로 표시하기
+        <ul>
+          <li>createElement 함수 작성하기</li>
+          <li>createTextElement 함수 작성하기</li>
+        </ul>
+      </li>
+    </ul>
+    <p>문제 풀이를 위해서는 2가지 함수만 작성하면 됩니다.</p>
+    <p>
+      단순히 2개의 함수를 구현한다고 해서 React의 모든 매커니즘과 동작 방식을 이해할 수는 없습니다.<br />
+      때문에 React의 내부 동작을 풀어낸다는 생각으로 문제에 접근한다면 React 개발팀이나 해박한 지식을 가진 개발자가
+      아니라면 풀어내기 어려울 수 있습니다.
+    </p>
+    <p>
+      <code>React.createElement()</code>를 흉내내며 모방한다는 생각으로 해당 케이스의 문제 풀이에 접근하고 시도해봅시다!
+    </p>
+    <pre><code class="language-js"><div><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">createElement</span>(<span class="hljs-params">type, props = {}, ...children</span>) </span>{
+    <span class="hljs-comment">// <span class="hljs-doctag">TODO:</span> Write code</span>
+  
+    <span class="hljs-keyword">return</span> {
+      type,
+      <span class="hljs-attr">props</span>: {},
+    }
+  }
+  
+  <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">createTextElement</span>(<span class="hljs-params">value</span>) </span>{
+    <span class="hljs-comment">// <span class="hljs-doctag">TODO:</span> Write code</span>
+  }
+  </div></code></pre>
+    <br />
+    <h3 id="주요-학습-키워드">주요 학습 키워드</h3>
+    <ol>
+      <li>JSX</li>
+      <li>React.createElement</li>
+    </ol>
+    <br />
+    <h3 id="작성해주셔야하는-question-파일경로">작성해주셔야하는 question 파일경로</h3>
+    <p><code>./question/index.js</code></p>
+    <br />
+    <h3 id="실행-방법-및-의존성-모듈-설치">실행 방법 및 의존성 모듈 설치</h3>
+    <p>경로 : <code>./question/index.html</code></p>
+    <p>
+      <code>index.html</code>에 복잡한 <strong>Babel</strong> 설정을 하지 않기 위해 <code>CDN</code>이 포함되어 있으니
+      <code>live-server</code> 등을 이용해 확인하시면서 구현할 수 있습니다.
+    </p>
+    <br />
+    <h3 id="reference">Reference</h3>
+    <ul>
+      <li>JSX Live Editor : <a href="https://jsx.egoist.sh">https://jsx.egoist.sh</a></li>
+      <li>
+        Babel REPL :
+        <a
+          href="https://babeljs.io/repl/#?presets=react&amp;code_lz=GYVwdgxgLglg9mABACwKYBt1wBQEpEDeAUIogE6pQhlIA8AJjAG4B8AEhlogO5xnr0AhLQD0jVgG4iAXyJA"
+          >https://babeljs.io/repl/#?presets=react&amp;code_lz=GYVwdgxgLglg9mABACwKYBt1wBQEpEDeAUIogE6pQhlIA8AJjAG4B8AEhlogO5xnr0AhLQD0jVgG4iAXyJA</a
+        >
+      </li>
+    </ul>
+  </body>
+</html>

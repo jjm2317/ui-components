@@ -1,0 +1,646 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Case12 : webpack - 출제자 해설</title>
+    <link rel="preconnect" href="https://fonts.gstatic.com" />
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;700&display=swap" rel="stylesheet" />
+
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/gh/Microsoft/vscode/extensions/markdown-language-features/media/highlight.css"
+    />
+    <style>
+      /*
+              ==================== html => MD 작업 시, 꼭! 확인해주세요. ====================
+              1. Markdown All in One : Print current document to HTML 실행. (VScode extension)
+              2. 생성된 README.html에서 body 태그 안에 있는것들을 복사
+              3. 루트 폴더에 README_OOO.md 생성 (OOO : Case 이름)
+              4. ! 자동완성을 통해 기본 html 폼을 만들고, body태그 안에 <2>의 내용 붙여넣기
+              5. font / code style에 관련된 <link>세줄과 <style> 태그 안에 있는 내용 붙여넣기
+              6. 상단 <title> 태그 안에 <h2> 텍스트 삽입
+              7. <code> tag가 줄바꿈 될 때, class명으로 "code-inlineBlock" 넣어주기
+              8. <img>태그 경로 변경해주기
+              [ EXAMPLE ]
+              [ 변경 전 ] : 절대경로로 되어있음
+              <img
+                  width="600px"
+                  src="file:////Users/ming/Desktop/ui-component/case2_InfiniteScroll/example_image.gif"
+                />
+              [ 변경 후 ] : 상대경로로 수정
+              <img
+                  width="600px"
+                  src="./example_image.gif"
+                />
+              8. html 내에 <h3>실행 방법 및 의존성 모듈 설치</h3> 하위 내용 아래와 같이 수정
+              [ EXAMPLE ]
+              [ 변경 전 ] : p에 className 없음
+                <p>
+                  <strong>q1</strong>
+                  경로
+                  <code>./question/q1_js</code>
+                  index.html 열기
+                </p>
+              [ 변경 후 ] : p에 className 있음
+                <p>
+                  <strong>q1</strong>
+                  경로
+                  <code>./question/q1_js</code>
+                  <p class="excute-text">index.html 열기</p>
+                </p>
+          
+          
+              [ 변경 전 ] : p태그와 pre태그가 div로 감싸져있지 않음
+                <p>
+                  <strong>q4</strong>
+                  경로
+                  <code>./question/q4_react.js</code>
+                </p>
+          
+                <p>터미널</p>
+                <pre><code class="language-bash"><div>  $ npm install
+                $ npm start
+              </div></code></pre>
+          
+              [ 변경 후 ] : p태그와 pre태그가 div.code-wrap 으로 감싸져있음
+                <p>
+                  <strong>q4</strong>
+                  경로
+                  <code>./question/q4_react.js</code>
+                </p>
+          
+                <div class="code-wrap">
+                <p>터미널</p>
+                <pre>
+                  <code class="language-bash"><div>  $ npm install
+              $ npm start
+            </div></code></pre>
+            </div>
+            */
+
+      html {
+        overflow-x: hidden;
+        padding-bottom: 30px;
+      }
+
+      body {
+        font-family: 'Noto Sans KR', sans-serif;
+      }
+
+      h1,
+      h2,
+      h3,
+      h4,
+      h5,
+      h6,
+      ul,
+      ol,
+      li,
+      dl,
+      dt,
+      dd,
+      p,
+      table {
+        margin: 0;
+        padding: 0;
+        color: #494949;
+        letter-spacing: -0.025rem;
+        box-sizing: border-box;
+      }
+
+      h1,
+      h2,
+      h3,
+      h4,
+      h5,
+      h6 {
+        font-weight: 600;
+      }
+
+      a {
+        color: blue;
+      }
+
+      a img {
+        border: none;
+      }
+
+      img {
+        max-width: 100%;
+        vertical-align: middle;
+      }
+      img:nth-of-type(1) {
+        max-width: 50%;
+        display: block;
+        margin: 30px 0;
+      }
+
+      ul li {
+        list-style: none;
+      }
+
+      ul > li > ul {
+        margin: 0;
+        padding: 15px;
+      }
+      ul > li > ul > li {
+        list-style: circle;
+        margin-left: 25px;
+      }
+
+      ol > li > ul {
+        margin: 0;
+        padding: 15px;
+      }
+      ol > li > ul > li {
+        list-style: circle;
+        margin-left: 25px;
+      }
+
+      p {
+        line-height: 1.8;
+      }
+      /* STYLE */
+
+      body {
+        padding: 0;
+        margin: 0;
+        line-height: 1.6;
+      }
+
+      h2 {
+        padding: 50px 0;
+        color: #ffffff;
+        font-size: 2rem;
+        text-align: center;
+        background: linear-gradient(45deg, #ed234b, #ff6c89, #ff6fb7);
+      }
+
+      h2::before {
+        content: '#';
+        display: inline-block;
+        margin-right: 5px;
+        color: #ff9db0;
+        font-weight: 300;
+        font-size: 2.2rem;
+      }
+
+      h3 {
+        position: relative;
+        margin: 30px 20px;
+        padding-bottom: 15px;
+        color: #303030;
+        font-size: 1.6rem;
+        border-bottom: 1px solid #ededed;
+      }
+
+      blockquote {
+        margin: 20px;
+        padding: 20px;
+        background: #f2f2f2;
+      }
+
+      strong {
+        display: block;
+        margin-top: 10px;
+      }
+
+      .code-wrap {
+        position: relative;
+        background: #2f303b;
+        margin: 15px 0 0 0;
+      }
+
+      .code-wrap > p {
+        position: absolute;
+        left: 0;
+        top: 0;
+        padding: 2px 15px;
+        font-size: 0.7rem;
+        color: #ffffff;
+        text-align: center;
+        background: #61c8cc;
+      }
+
+      code {
+        background: #ededed;
+      }
+
+      .language-html > div,
+      .language-css > div,
+      .language-scss > div,
+      .language-javascript > div,
+      .language-json > div,
+      .language-typescript > div {
+        color: #fff;
+        padding: 30px 20px;
+        background: #2f303b;
+      }
+
+      code.language-bash div {
+        margin-top: -20px;
+        padding: 30px 20px;
+        font-size: 1rem;
+        color: #ffffff;
+        background: #2f303b;
+        box-sizing: border-box;
+      }
+
+      code::after {
+        content: '';
+        display: block;
+      }
+
+      code.code-inlineBlock::after {
+        content: '';
+        display: inline-block;
+      }
+
+      .excute-text {
+        font-size: 0.8rem;
+        font-weight: bold;
+        color: #ed234b;
+      }
+      /* 좌, 우 여백 */
+
+      ol,
+      ul {
+        margin: 20px;
+        padding: 20px;
+        background: #f2f2f2;
+      }
+
+      ol li {
+        margin-left: 15px;
+      }
+
+      li {
+        font-size: 0.85rem;
+      }
+
+      h4,
+      h5,
+      h6,
+      p,
+      img,
+      pre {
+        padding: 0 20px;
+      }
+    </style>
+  </head>
+  <body>
+    <h2 id="case14--webpack---출제자-해설">Case12 : webpack - 출제자 해설</h2>
+    <h3 id="html">HTML</h3>
+    <pre><code class="language-html"><div><span class="hljs-meta">&lt;!DOCTYPE <span class="hljs-meta-keyword">html</span>&gt;</span>
+  <span class="hljs-tag">&lt;<span class="hljs-name">html</span> <span class="hljs-attr">lang</span>=<span class="hljs-string">&quot;en&quot;</span>&gt;</span>
+  <span class="hljs-tag">&lt;<span class="hljs-name">head</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">meta</span> <span class="hljs-attr">charset</span>=<span class="hljs-string">&quot;UTF-8&quot;</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">meta</span> <span class="hljs-attr">name</span>=<span class="hljs-string">&quot;viewport&quot;</span> <span class="hljs-attr">content</span>=<span class="hljs-string">&quot;width=device-width, initial-scale=1.0&quot;</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">title</span>&gt;</span>webpack<span class="hljs-tag">&lt;/<span class="hljs-name">title</span>&gt;</span>
+  <span class="hljs-tag">&lt;/<span class="hljs-name">head</span>&gt;</span>
+  <span class="hljs-tag">&lt;<span class="hljs-name">body</span>&gt;</span>
+    
+    <span class="hljs-tag">&lt;<span class="hljs-name">script</span> <span class="hljs-attr">src</span>=<span class="hljs-string">&quot;./dist/bundle.js&quot;</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">script</span>&gt;</span>
+  
+  <span class="hljs-tag">&lt;/<span class="hljs-name">body</span>&gt;</span>
+  <span class="hljs-tag">&lt;/<span class="hljs-name">html</span>&gt;</span>
+  </div></code></pre>
+    <h3 id="js">JS</h3>
+    <h4 id="minipackjs">minipack.js</h4>
+    <pre><code class="language-javascript"><div><span class="hljs-comment">/**
+   * Module bundlers compile small pieces of code into something larger and more
+   * complex that can run in a web browser. These small pieces are just JavaScript
+   * files, and dependencies between them are expressed by a module system
+   * (https://webpack.js.org/concepts/modules).
+   *
+   * Module bundlers have this concept of an entry file. Instead of adding a few
+   * script tags in the browser and letting them run, we let the bundler know
+   * which file is the main file of our application. This is the file that should
+   * bootstrap our entire application.
+   *
+   * Our bundler will start from that entry file, and it will try to understand
+   * which files it depends on. Then, it will try to understand which files its
+   * dependencies depend on. It will keep doing that until it figures out about
+   * every module in our application, and how they depend on one another.
+   *
+   * This understanding of a project is called the dependency graph.
+   *
+   * In this example, we will create a dependency graph and use it to package
+   * all of its modules in one bundle.
+   *
+   * Let&#x27;s begin :)
+   *
+   * Please note: This is a very simplified example. Handling cases such as
+   * circular dependencies, caching module exports, parsing each module just once
+   * and others are skipped to make this example as simple as possible.
+   */</span>
+  
+  <span class="hljs-keyword">const</span> fs = <span class="hljs-built_in">require</span>(<span class="hljs-string">&#x27;fs&#x27;</span>);
+  <span class="hljs-keyword">const</span> path = <span class="hljs-built_in">require</span>(<span class="hljs-string">&#x27;path&#x27;</span>);
+  <span class="hljs-keyword">const</span> babylon = <span class="hljs-built_in">require</span>(<span class="hljs-string">&#x27;babylon&#x27;</span>);
+  <span class="hljs-keyword">const</span> traverse = <span class="hljs-built_in">require</span>(<span class="hljs-string">&#x27;babel-traverse&#x27;</span>).default;
+  <span class="hljs-keyword">const</span> {transformFromAst} = <span class="hljs-built_in">require</span>(<span class="hljs-string">&#x27;babel-core&#x27;</span>);
+  
+  <span class="hljs-keyword">let</span> ID = <span class="hljs-number">0</span>;
+  
+  <span class="hljs-comment">// We start by creating a function that will accept a path to a file, read</span>
+  <span class="hljs-comment">// its contents, and extract its dependencies.</span>
+  <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">createAsset</span>(<span class="hljs-params">filename</span>) </span>{
+    <span class="hljs-comment">// Read the content of the file as a string.</span>
+    <span class="hljs-keyword">const</span> content = fs.readFileSync(filename, <span class="hljs-string">&#x27;utf-8&#x27;</span>);
+  
+    <span class="hljs-comment">// Now we try to figure out which files this file depends on. We can do that</span>
+    <span class="hljs-comment">// by looking at its content for import strings. However, this is a pretty</span>
+    <span class="hljs-comment">// clunky approach, so instead, we will use a JavaScript parser.</span>
+    <span class="hljs-comment">//</span>
+    <span class="hljs-comment">// JavaScript parsers are tools that can read and understand JavaScript code.</span>
+    <span class="hljs-comment">// They generate a more abstract model called an AST (abstract syntax tree).</span>
+  
+    <span class="hljs-comment">// I strongly suggest that you look at AST Explorer (https://astexplorer.net)</span>
+    <span class="hljs-comment">// to see how an AST looks like.</span>
+    <span class="hljs-comment">//</span>
+    <span class="hljs-comment">// The AST contains a lot of information about our code. We can query it to</span>
+    <span class="hljs-comment">// understand what our code is trying to do.</span>
+    <span class="hljs-keyword">const</span> ast = babylon.parse(content, {
+      <span class="hljs-attr">sourceType</span>: <span class="hljs-string">&#x27;module&#x27;</span>,
+    });
+  
+    <span class="hljs-comment">// This array will hold the relative paths of modules this module depends on.</span>
+    <span class="hljs-keyword">const</span> dependencies = [];
+  
+    <span class="hljs-comment">// We traverse the AST to try and understand which modules this module depends</span>
+    <span class="hljs-comment">// on. To do that, we check every import declaration in the AST.</span>
+    traverse(ast, {
+      <span class="hljs-comment">// EcmaScript modules are fairly easy because they are static. This means</span>
+      <span class="hljs-comment">// that you can&#x27;t import a variable, or conditionally import another module.</span>
+      <span class="hljs-comment">// Every time we see an import statement we can just count its value as a</span>
+      <span class="hljs-comment">// dependency.</span>
+      <span class="hljs-attr">ImportDeclaration</span>: <span class="hljs-function">(<span class="hljs-params">{node}</span>) =&gt;</span> {
+        <span class="hljs-comment">// We push the value that we import into the dependencies array.</span>
+        dependencies.push(node.source.value);
+      },
+    });
+  
+    <span class="hljs-comment">// We also assign a unique identifier to this module by incrementing a simple</span>
+    <span class="hljs-comment">// counter.</span>
+    <span class="hljs-keyword">const</span> id = ID++;
+  
+    <span class="hljs-comment">// We use EcmaScript modules and other JavaScript features that may not be</span>
+    <span class="hljs-comment">// supported on all browsers. To make sure our bundle runs in all browsers we</span>
+    <span class="hljs-comment">// will transpile it with Babel (see https://babeljs.io).</span>
+    <span class="hljs-comment">//</span>
+    <span class="hljs-comment">// The `presets` option is a set of rules that tell Babel how to transpile</span>
+    <span class="hljs-comment">// our code. We use `babel-preset-env` to transpile our code to something</span>
+    <span class="hljs-comment">// that most browsers can run.</span>
+    <span class="hljs-keyword">const</span> {code} = transformFromAst(ast, <span class="hljs-literal">null</span>, {
+      <span class="hljs-attr">presets</span>: [<span class="hljs-string">&#x27;env&#x27;</span>],
+    });
+  
+    <span class="hljs-comment">// Return all information about this module.</span>
+    <span class="hljs-keyword">return</span> {
+      id,
+      filename,
+      dependencies,
+      code,
+    };
+  }
+  
+  <span class="hljs-comment">// Now that we can extract the dependencies of a single module, we are going to</span>
+  <span class="hljs-comment">// start by extracting the dependencies of the entry file.</span>
+  <span class="hljs-comment">//</span>
+  <span class="hljs-comment">// Then, we are going to extract the dependencies of every one of its</span>
+  <span class="hljs-comment">// dependencies. We will keep that going until we figure out about every module</span>
+  <span class="hljs-comment">// in the application and how they depend on one another. This understanding of</span>
+  <span class="hljs-comment">// a project is called the dependency graph.</span>
+  <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">createGraph</span>(<span class="hljs-params">entry</span>) </span>{
+    <span class="hljs-comment">// Start by parsing the entry file.</span>
+    <span class="hljs-keyword">const</span> mainAsset = createAsset(entry);
+  
+    <span class="hljs-comment">// We&#x27;re going to use a queue to parse the dependencies of every asset. To do</span>
+    <span class="hljs-comment">// that we are defining an array with just the entry asset.</span>
+    <span class="hljs-keyword">const</span> queue = [mainAsset];
+  
+    <span class="hljs-comment">// We use a `for ... of` loop to iterate over the queue. Initially the queue</span>
+    <span class="hljs-comment">// only has one asset but as we iterate it we will push additional new assets</span>
+    <span class="hljs-comment">// into the queue. This loop will terminate when the queue is empty.</span>
+    <span class="hljs-keyword">for</span> (<span class="hljs-keyword">const</span> asset <span class="hljs-keyword">of</span> queue) {
+      <span class="hljs-comment">// Every one of our assets has a list of relative paths to the modules it</span>
+      <span class="hljs-comment">// depends on. We are going to iterate over them, parse them with our</span>
+      <span class="hljs-comment">// `createAsset()` function, and track the dependencies this module has in</span>
+      <span class="hljs-comment">// this object.</span>
+      asset.mapping = {};
+  
+      <span class="hljs-comment">// This is the directory this module is in.</span>
+      <span class="hljs-keyword">const</span> dirname = path.dirname(asset.filename);
+  
+      <span class="hljs-comment">// We iterate over the list of relative paths to its dependencies.</span>
+      asset.dependencies.forEach(<span class="hljs-function"><span class="hljs-params">relativePath</span> =&gt;</span> {
+        <span class="hljs-comment">// Our `createAsset()` function expects an absolute filename. The</span>
+        <span class="hljs-comment">// dependencies array is an array of relative paths. These paths are</span>
+        <span class="hljs-comment">// relative to the file that imported them. We can turn the relative path</span>
+        <span class="hljs-comment">// into an absolute one by joining it with the path to the directory of</span>
+        <span class="hljs-comment">// the parent asset.</span>
+        <span class="hljs-keyword">const</span> absolutePath = path.join(dirname, relativePath);
+  
+        <span class="hljs-comment">// Parse the asset, read its content, and extract its dependencies.</span>
+        <span class="hljs-keyword">const</span> child = createAsset(absolutePath);
+  
+        <span class="hljs-comment">// It&#x27;s essential for us to know that `asset` depends on `child`. We</span>
+        <span class="hljs-comment">// express that relationship by adding a new property to the `mapping`</span>
+        <span class="hljs-comment">// object with the id of the child.</span>
+        asset.mapping[relativePath] = child.id;
+  
+        <span class="hljs-comment">// Finally, we push the child asset into the queue so its dependencies</span>
+        <span class="hljs-comment">// will also be iterated over and parsed.</span>
+        queue.push(child);
+      });
+    }
+  
+    <span class="hljs-comment">// At this point the queue is just an array with every module in the target</span>
+    <span class="hljs-comment">// application: This is how we represent our graph.</span>
+    <span class="hljs-keyword">return</span> queue;
+  }
+  
+  <span class="hljs-comment">// Next, we define a function that will use our graph and return a bundle that</span>
+  <span class="hljs-comment">// we can run in the browser.</span>
+  <span class="hljs-comment">//</span>
+  <span class="hljs-comment">// Our bundle will have just one self-invoking function:</span>
+  <span class="hljs-comment">//</span>
+  <span class="hljs-comment">// (function() {})()</span>
+  <span class="hljs-comment">//</span>
+  <span class="hljs-comment">// That function will receive just one parameter: An object with information</span>
+  <span class="hljs-comment">// about every module in our graph.</span>
+  <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">bundle</span>(<span class="hljs-params">graph</span>) </span>{
+    <span class="hljs-keyword">let</span> modules = <span class="hljs-string">&#x27;&#x27;</span>;
+  
+    <span class="hljs-comment">// Before we get to the body of that function, we&#x27;ll construct the object that</span>
+    <span class="hljs-comment">// we&#x27;ll pass to it as a parameter. Please note that this string that we&#x27;re</span>
+    <span class="hljs-comment">// building gets wrapped by two curly braces ({}) so for every module, we add</span>
+    <span class="hljs-comment">// a string of this format: `key: value,`.</span>
+    graph.forEach(<span class="hljs-function"><span class="hljs-params">mod</span> =&gt;</span> {
+      <span class="hljs-comment">// Every module in the graph has an entry in this object. We use the</span>
+      <span class="hljs-comment">// module&#x27;s id as the key and an array for the value (we have 2 values for</span>
+      <span class="hljs-comment">// every module).</span>
+      <span class="hljs-comment">//</span>
+      <span class="hljs-comment">// The first value is the code of each module wrapped with a function. This</span>
+      <span class="hljs-comment">// is because modules should be scoped: Defining a variable in one module</span>
+      <span class="hljs-comment">// shouldn&#x27;t affect others or the global scope.</span>
+      <span class="hljs-comment">//</span>
+      <span class="hljs-comment">// Our modules, after we transpiled them, use the CommonJS module system:</span>
+      <span class="hljs-comment">// They expect a `require`, a `module` and an `exports` objects to be</span>
+      <span class="hljs-comment">// available. Those are not normally available in the browser so we&#x27;ll</span>
+      <span class="hljs-comment">// implement them and inject them into our function wrappers.</span>
+      <span class="hljs-comment">//</span>
+      <span class="hljs-comment">// For the second value, we stringify the mapping between a module and its</span>
+      <span class="hljs-comment">// dependencies. This is an object that looks like this:</span>
+      <span class="hljs-comment">// { &#x27;./relative/path&#x27;: 1 }.</span>
+      <span class="hljs-comment">//</span>
+      <span class="hljs-comment">// This is because the transpiled code of our modules has calls to</span>
+      <span class="hljs-comment">// `require()` with relative paths. When this function is called, we should</span>
+      <span class="hljs-comment">// be able to know which module in the graph corresponds to that relative</span>
+      <span class="hljs-comment">// path for this module.</span>
+      modules += <span class="hljs-string">`<span class="hljs-subst">${mod.id}</span>: [
+        function (require, module, exports) {
+          <span class="hljs-subst">${mod.code}</span>
+        },
+        <span class="hljs-subst">${<span class="hljs-built_in">JSON</span>.stringify(mod.mapping)}</span>,
+      ],`</span>;
+    });
+  
+    <span class="hljs-comment">// Finally, we implement the body of the self-invoking function.</span>
+    <span class="hljs-comment">//</span>
+    <span class="hljs-comment">// We start by creating a `require()` function: It accepts a module id and</span>
+    <span class="hljs-comment">// looks for it in the `modules` object we constructed previously. We</span>
+    <span class="hljs-comment">// destructure over the two-value array to get our function wrapper and the</span>
+    <span class="hljs-comment">// mapping object.</span>
+    <span class="hljs-comment">//</span>
+    <span class="hljs-comment">// The code of our modules has calls to `require()` with relative file paths</span>
+    <span class="hljs-comment">// instead of module ids. Our require function expects module ids. Also, two</span>
+    <span class="hljs-comment">// modules might `require()` the same relative path but mean two different</span>
+    <span class="hljs-comment">// modules.</span>
+    <span class="hljs-comment">//</span>
+    <span class="hljs-comment">// To handle that, when a module is required we create a new, dedicated</span>
+    <span class="hljs-comment">// `require` function for it to use. It will be specific to that module and</span>
+    <span class="hljs-comment">// will know to turn its relative paths into ids by using the module&#x27;s</span>
+    <span class="hljs-comment">// mapping object. The mapping object is exactly that, a mapping between</span>
+    <span class="hljs-comment">// relative paths and module ids for that specific module.</span>
+    <span class="hljs-comment">//</span>
+    <span class="hljs-comment">// Lastly, with CommonJs, when a module is required, it can expose values by</span>
+    <span class="hljs-comment">// mutating its `exports` object. The `exports` object, after it has been</span>
+    <span class="hljs-comment">// changed by the module&#x27;s code, is returned from the `require()` function.</span>
+    <span class="hljs-keyword">const</span> result = <span class="hljs-string">`
+      (function(modules) {
+        function require(id) {
+          const [fn, mapping] = modules[id];
+          function localRequire(name) {
+            return require(mapping[name]);
+          }
+          const module = { exports : {} };
+          fn(localRequire, module, module.exports);
+          return module.exports;
+        }
+        require(0);
+      })({<span class="hljs-subst">${modules}</span>})
+    `</span>;
+  
+    <span class="hljs-comment">// We simply return the result, hurray! :)</span>
+    <span class="hljs-keyword">return</span> result;
+  }
+  
+  <span class="hljs-keyword">const</span> graph = createGraph(<span class="hljs-string">&#x27;./src/index.js&#x27;</span>);
+  <span class="hljs-keyword">const</span> result = bundle(graph);
+  
+  fs.writeFile( <span class="hljs-string">&#x27;./dist/bundle.js&#x27;</span> , result , <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">err</span>)</span>{
+    <span class="hljs-keyword">if</span>(err === <span class="hljs-literal">null</span>){
+      <span class="hljs-built_in">console</span>.log(<span class="hljs-string">&#x27;success&#x27;</span>);
+    }<span class="hljs-keyword">else</span>{
+      <span class="hljs-built_in">console</span>.log(<span class="hljs-string">&#x27;fail&#x27;</span>);
+    }
+  });
+  
+  </div></code></pre>
+    <h4 id="bundlejs">bundle.js</h4>
+    <pre><code class="language-javascript"><div>
+      (<span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">modules</span>) </span>{
+        <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">require</span>(<span class="hljs-params">id</span>) </span>{
+          <span class="hljs-keyword">const</span> [fn, mapping] = modules[id];
+          <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">localRequire</span>(<span class="hljs-params">name</span>) </span>{
+            <span class="hljs-keyword">return</span> <span class="hljs-built_in">require</span>(mapping[name]);
+          }
+          <span class="hljs-keyword">const</span> <span class="hljs-built_in">module</span> = { <span class="hljs-attr">exports</span> : {} };
+          fn(localRequire, <span class="hljs-built_in">module</span>, <span class="hljs-built_in">module</span>.exports);
+          <span class="hljs-keyword">return</span> <span class="hljs-built_in">module</span>.exports;
+        }
+        <span class="hljs-built_in">require</span>(<span class="hljs-number">0</span>);
+      })({<span class="hljs-number">0</span>: [
+        <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">require, module, exports</span>) </span>{
+  <span class="hljs-meta">        &quot;use strict&quot;</span>;
+  
+  <span class="hljs-keyword">var</span> _varA = <span class="hljs-built_in">require</span>(<span class="hljs-string">&quot;./varA.js&quot;</span>);
+  
+  <span class="hljs-keyword">var</span> _varB = <span class="hljs-built_in">require</span>(<span class="hljs-string">&quot;./varB.js&quot;</span>);
+  
+  alert((<span class="hljs-number">0</span>, _varA.varA)());
+  alert((<span class="hljs-number">0</span>, _varB.varB)());
+        },
+        {<span class="hljs-string">&quot;./varA.js&quot;</span>:<span class="hljs-number">1</span>,<span class="hljs-string">&quot;./varB.js&quot;</span>:<span class="hljs-number">2</span>},
+      ],<span class="hljs-number">1</span>: [
+        <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">require, module, exports</span>) </span>{
+  <span class="hljs-meta">        &quot;use strict&quot;</span>;
+  
+  <span class="hljs-built_in">Object</span>.defineProperty(<span class="hljs-built_in">exports</span>, <span class="hljs-string">&quot;__esModule&quot;</span>, {
+    <span class="hljs-attr">value</span>: <span class="hljs-literal">true</span>
+  });
+  <span class="hljs-keyword">var</span> text = <span class="hljs-string">&quot;varA&quot;</span>;
+  
+  <span class="hljs-keyword">var</span> varA = <span class="hljs-built_in">exports</span>.varA = <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">varA</span>(<span class="hljs-params"></span>) </span>{
+    <span class="hljs-keyword">return</span> text;
+  };
+        },
+        {},
+      ],<span class="hljs-number">2</span>: [
+        <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">require, module, exports</span>) </span>{
+  <span class="hljs-meta">        &quot;use strict&quot;</span>;
+  
+  <span class="hljs-built_in">Object</span>.defineProperty(<span class="hljs-built_in">exports</span>, <span class="hljs-string">&quot;__esModule&quot;</span>, {
+    <span class="hljs-attr">value</span>: <span class="hljs-literal">true</span>
+  });
+  <span class="hljs-keyword">var</span> text = <span class="hljs-string">&quot;varB&quot;</span>;
+  
+  <span class="hljs-keyword">var</span> varB = <span class="hljs-built_in">exports</span>.varB = <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">varB</span>(<span class="hljs-params"></span>) </span>{
+    <span class="hljs-keyword">return</span> text;
+  };
+        },
+        {},
+      ],})
+    
+  </div></code></pre>
+    <h4 id="packagejson">package.json</h4>
+    <pre><code class="language-json"><div>{
+    <span class="hljs-attr">&quot;name&quot;</span>: <span class="hljs-string">&quot;minipack&quot;</span>,
+    <span class="hljs-attr">&quot;version&quot;</span>: <span class="hljs-string">&quot;1.0.0&quot;</span>,
+    <span class="hljs-attr">&quot;description&quot;</span>: <span class="hljs-string">&quot;&quot;</span>,
+    <span class="hljs-attr">&quot;author&quot;</span>: <span class="hljs-string">&quot;Ronen Amiel&quot;</span>,
+    <span class="hljs-attr">&quot;license&quot;</span>: <span class="hljs-string">&quot;MIT&quot;</span>,
+    <span class="hljs-attr">&quot;dependencies&quot;</span>: {
+      <span class="hljs-attr">&quot;babel-core&quot;</span>: <span class="hljs-string">&quot;^6.26.0&quot;</span>,
+      <span class="hljs-attr">&quot;babel-preset-env&quot;</span>: <span class="hljs-string">&quot;^1.6.1&quot;</span>,
+      <span class="hljs-attr">&quot;babel-preset-es2015&quot;</span>: <span class="hljs-string">&quot;^6.24.1&quot;</span>,
+      <span class="hljs-attr">&quot;babel-traverse&quot;</span>: <span class="hljs-string">&quot;^6.26.0&quot;</span>,
+      <span class="hljs-attr">&quot;babylon&quot;</span>: <span class="hljs-string">&quot;^6.18.0&quot;</span>,
+      <span class="hljs-attr">&quot;eslint&quot;</span>: <span class="hljs-string">&quot;^4.17.0&quot;</span>,
+      <span class="hljs-attr">&quot;eslint-config-airbnb-base&quot;</span>: <span class="hljs-string">&quot;^12.1.0&quot;</span>,
+      <span class="hljs-attr">&quot;eslint-plugin-import&quot;</span>: <span class="hljs-string">&quot;^2.8.0&quot;</span>
+    },
+    <span class="hljs-attr">&quot;devDependencies&quot;</span>: {
+      <span class="hljs-attr">&quot;eslint-config-prettier&quot;</span>: <span class="hljs-string">&quot;^2.9.0&quot;</span>,
+      <span class="hljs-attr">&quot;eslint-plugin-prettier&quot;</span>: <span class="hljs-string">&quot;^2.6.0&quot;</span>,
+      <span class="hljs-attr">&quot;prettier&quot;</span>: <span class="hljs-string">&quot;^1.10.2&quot;</span>
+    }
+  }
+  
+  </div></code></pre>
+  </body>
+</html>
