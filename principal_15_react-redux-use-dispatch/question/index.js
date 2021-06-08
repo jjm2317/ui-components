@@ -41,13 +41,13 @@ const useSelector = (selector) => {
   const store = useStore();
 
   // TODO: Write Refactoring code
-  const shallowEqual = ()
+
   const [, forceRender] = React.useReducer((s) => s + 1, 0);
 
   React.useEffect(() => {
     store.subscribe(() => {
       // TODO: Write Refactoring code
-      
+
       forceRender();
     });
   }, [store, forceRender]);
