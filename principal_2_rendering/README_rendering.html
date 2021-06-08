@@ -1,0 +1,417 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Case2 : DOM Elements 렌더링</title>
+    <link rel="preconnect" href="https://fonts.gstatic.com" />
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;700&display=swap" rel="stylesheet" />
+
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/gh/Microsoft/vscode/extensions/markdown-language-features/media/highlight.css"
+    />
+    <style>
+      /*
+              ==================== html => MD 작업 시, 꼭! 확인해주세요. ====================
+              1. Markdown All in One : Print current document to HTML 실행. (VScode extension)
+              2. 생성된 README.html에서 body 태그 안에 있는것들을 복사
+              3. 루트 폴더에 README_OOO.md 생성 (OOO : Case 이름)
+              4. ! 자동완성을 통해 기본 html 폼을 만들고, body태그 안에 <2>의 내용 붙여넣기
+              5. font / code style에 관련된 <link>세줄과 <style> 태그 안에 있는 내용 붙여넣기
+              6. 상단 <title> 태그 안에 <h2> 텍스트 삽입
+              7. <code> tag가 줄바꿈 될 때, class명으로 "code-inlineBlock" 넣어주기
+              8. <img>태그 경로 변경해주기
+              [ EXAMPLE ]
+              [ 변경 전 ] : 절대경로로 되어있음
+              <img
+                  width="600px"
+                  src="file:////Users/ming/Desktop/ui-component/case2_InfiniteScroll/example_image.gif"
+                />
+              [ 변경 후 ] : 상대경로로 수정
+              <img
+                  width="600px"
+                  src="./example_image.gif"
+                />
+              8. html 내에 <h3>실행 방법 및 의존성 모듈 설치</h3> 하위 내용 아래와 같이 수정
+              [ EXAMPLE ]
+              [ 변경 전 ] : p에 className 없음
+                <p>
+                  <strong>q1</strong>
+                  경로
+                  <code>./question/q1_js</code>
+                  index.html 열기
+                </p>
+              [ 변경 후 ] : p에 className 있음
+                <p>
+                  <strong>q1</strong>
+                  경로
+                  <code>./question/q1_js</code>
+                  <p class="excute-text">index.html 열기</p>
+                </p>
+          
+          
+              [ 변경 전 ] : p태그와 pre태그가 div로 감싸져있지 않음
+                <p>
+                  <strong>q4</strong>
+                  경로
+                  <code>./question/q4_react.js</code>
+                </p>
+          
+                <p>터미널</p>
+                <pre><code class="language-bash"><div>  $ npm install
+                $ npm start
+              </div></code></pre>
+          
+              [ 변경 후 ] : p태그와 pre태그가 div.code-wrap 으로 감싸져있음
+                <p>
+                  <strong>q4</strong>
+                  경로
+                  <code>./question/q4_react.js</code>
+                </p>
+          
+                <div class="code-wrap">
+                <p>터미널</p>
+                <pre>
+                  <code class="language-bash"><div>  $ npm install
+              $ npm start
+            </div></code></pre>
+            </div>
+            */
+
+      html {
+        overflow-x: hidden;
+        padding-bottom: 30px;
+      }
+
+      body {
+        font-family: 'Noto Sans KR', sans-serif;
+      }
+
+      h1,
+      h2,
+      h3,
+      h4,
+      h5,
+      h6,
+      ul,
+      ol,
+      li,
+      dl,
+      dt,
+      dd,
+      p,
+      table {
+        margin: 0;
+        padding: 0;
+        color: #494949;
+        letter-spacing: -0.025rem;
+        box-sizing: border-box;
+      }
+
+      h1,
+      h2,
+      h3,
+      h4,
+      h5,
+      h6 {
+        font-weight: 600;
+      }
+
+      a {
+        color: blue;
+      }
+
+      a img {
+        border: none;
+      }
+
+      img {
+        max-width: 100%;
+        vertical-align: middle;
+      }
+      img:nth-of-type(1) {
+        max-width: 50%;
+        display: block;
+        margin: 30px 0;
+      }
+
+      ul li {
+        list-style: none;
+      }
+
+      ul > li > ul {
+        margin: 0;
+        padding: 15px;
+      }
+      ul > li > ul > li {
+        list-style: circle;
+        margin-left: 25px;
+      }
+
+      ol > li > ul {
+        margin: 0;
+        padding: 15px;
+      }
+      ol > li > ul > li {
+        list-style: circle;
+        margin-left: 25px;
+      }
+
+      ul > li > ol {
+        margin: 0;
+        padding: 0;
+      }
+
+      p {
+        line-height: 1.8;
+      }
+      /* STYLE */
+
+      body {
+        padding: 0;
+        margin: 0;
+        line-height: 1.6;
+      }
+
+      h2 {
+        padding: 50px 0;
+        color: #ffffff;
+        font-size: 2rem;
+        text-align: center;
+        background: linear-gradient(45deg, #ed234b, #ff6c89, #ff6fb7);
+      }
+
+      h2::before {
+        content: '#';
+        display: inline-block;
+        margin-right: 5px;
+        color: #ff9db0;
+        font-weight: 300;
+        font-size: 2.2rem;
+      }
+
+      h3 {
+        position: relative;
+        margin: 30px 20px;
+        padding-bottom: 15px;
+        color: #303030;
+        font-size: 1.6rem;
+        border-bottom: 1px solid #ededed;
+      }
+
+      blockquote {
+        margin: 20px;
+        padding: 20px;
+        background: #f2f2f2;
+      }
+
+      strong {
+        /* display: block; */
+        margin-top: 10px;
+      }
+
+      .code-wrap {
+        position: relative;
+        background: #2f303b;
+        margin: 15px 0 0 0;
+      }
+
+      .code-wrap > p {
+        position: absolute;
+        left: 0;
+        top: 0;
+        padding: 2px 15px;
+        font-size: 0.7rem;
+        color: #ffffff;
+        text-align: center;
+        background: #61c8cc;
+      }
+
+      code {
+        background: #ededed;
+      }
+
+      .language-html > div,
+      .language-css > div,
+      .language-scss > div,
+      .language-javascript > div,
+      .language-js > div,
+      .language-json > div,
+      .language-typescript > div {
+        color: #fff;
+        padding: 30px 20px;
+        background: #2f303b;
+      }
+
+      code.language-bash div {
+        margin-top: -20px;
+        padding: 30px 20px;
+        font-size: 1rem;
+        color: #ffffff;
+        background: #2f303b;
+        box-sizing: border-box;
+      }
+
+      code::after {
+        content: '';
+        /* display: block; */
+      }
+
+      code.code-inlineBlock::after {
+        content: '';
+        display: inline-block;
+      }
+
+      .excute-text {
+        font-size: 0.8rem;
+        font-weight: bold;
+        color: #ed234b;
+      }
+      /* 좌, 우 여백 */
+
+      ol,
+      ul {
+        margin: 20px;
+        padding: 20px;
+        background: #f2f2f2;
+      }
+
+      ol li {
+        margin-left: 15px;
+      }
+
+      li {
+        font-size: 0.85rem;
+      }
+
+      h4,
+      h5,
+      h6,
+      p,
+      img,
+      pre {
+        padding: 0 20px;
+      }
+    </style>
+  </head>
+  <body>
+    <h2 id="case2--dom-elements-렌더링">Case2 : DOM Elements 렌더링</h2>
+    <br />
+    <h3 id="케이스-주제">케이스 주제</h3>
+    <p>
+      Case1에서는 <code>React.createElement()</code>를 구현해보며 <strong>React</strong> 에서의
+      <strong>Element</strong> 가 어떻게 구성되고 만들어지는지 이해해보려고 했습니다.
+    </p>
+    <p>
+      또한 앞서 생성된 <strong>React Element</strong> 는 <strong>React</strong> 에서 가장 작은 단위라고
+      설명드렸었는데요.<br />
+      일반적인 객체 (<strong>Plain Object</strong>)라고도 할 수 있습니다.
+    </p>
+    <p>
+      페이스북의 React 개발팀에서 <strong>React</strong>를 소개할 때 3가지를 중점으로 설명합니다.<br />
+      (<em>선언형, 컴포넌트 기반, 한 번 배워서 어디서나 사용하기</em>)
+    </p>
+    <p>
+      그중에서도 <strong>Learn Once, Write Anywhere (한 번 배워서 어디서나 사용하기)</strong> 가 이번 케이스에 일부분
+      연관되어 있습니다.
+    </p>
+    <p><strong>React</strong> 를 기본적으로 사용할때 누구나 습관처럼 당연하게 사용하는 구문이 있을겁니다.</p>
+    <pre><code class="language-js"><div><span class="hljs-keyword">import</span> React <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;react&#x27;</span>
+<span class="hljs-keyword">import</span> ReactDOM <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;react-dom&#x27;</span>
+
+ReactDOM.render(element, container)
+</div></code></pre>
+    <p>
+      보통 최상위 컴포넌트에서 위의 코드처럼 <strong>ReactDOM</strong> 을 가져온 후 <code>ReactDOM.render()</code>을
+      사용하게 됩니다.
+    </p>
+    <p>
+      여기서 <code>ReactDOM.render()</code>는 최상위에서 사용할 수 있는 몇 안 되는 <strong>메서드</strong> 로
+      <strong>DOM</strong> 에 특화되어 있으며<br />
+      첫 번째 인자로 제공된 <strong>React Element</strong> 를 두 번째 인자인 <strong>Container Element</strong> 의
+      내부에 렌더링시킬 수 있습니다.
+    </p>
+    <br />
+    <h3 id="기능요구사항">기능요구사항</h3>
+    <ol>
+      <li>ReactDOM.render() 구현하기</li>
+      <li>render() 메서드를 구현하고 DOM 에 렌더링하기</li>
+    </ol>
+    <p>
+      이전 케이스에서 <code>React.createElement()</code>를 통해 <strong>React Element</strong> 를 만들었다면,<br />
+      이번에는 <strong>React Element Tree</strong> 를 생성하는 <code>render()</code> 메서드를 구현하고
+      <strong>DOM</strong> 에 렌더링까지 하는 것이 목표입니다.
+    </p>
+    <pre><code class="language-js"><div><span class="hljs-keyword">const</span> element = (
+  <span class="xml"><span class="hljs-tag">&lt;<span class="hljs-name">div</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">h1</span>&gt;</span>Hello World<span class="hljs-tag">&lt;/<span class="hljs-name">h1</span>&gt;</span>
+  <span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span></span>
+)
+
+<span class="hljs-keyword">const</span> rootElement = <span class="hljs-built_in">document</span>.getElementById(<span class="hljs-string">&#x27;root&#x27;</span>)
+ReactDOM.render(element, rootElement)
+</div></code></pre>
+    <br />
+    <h3 id="기능-작동-이미지">기능 작동 이미지</h3>
+    <p><img src="./example.png" alt="example" /></p>
+    <br />
+    <h3 id="문제">문제</h3>
+    <p>
+      아래의 <code>render()</code> 함수 구문의 내부를 작성하여 위의 <strong>React Element</strong> 를
+      <code>rootElement</code> 내부에 렌더링해보도록 하겠습니다.
+    </p>
+    <pre><code class="language-js"><div><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">render</span>(<span class="hljs-params">{ props, type }, container</span>) </span>{
+  <span class="hljs-comment">// <span class="hljs-doctag">TODO:</span> Write code</span>
+}
+</div></code></pre>
+    <p>
+      <strong>React</strong> 는 자식 노드들을 <strong>재귀적으로</strong> 렌더링한다는 것을 유념하면 구현시 큰 힌트가 될
+      수 있습니다.
+    </p>
+    <p>
+      단순히 <code>render()</code>를 구현한다고해서 <strong>ReactDOM</strong> 의 모든 매커니즘과 동작 방식을 이해할 수는
+      없습니다.<br />
+      때문에 React의 내부 동작을 풀어낸다는 생각으로 문제에 접근한다면 React 개발팀이나 해박한 지식을 가진 개발자가
+      아니라면 풀어내기 어려울 수 있습니다.
+    </p>
+    <p>
+      <code>ReactDOM.render()</code>를 흉내내며 모방한다는 생각으로 해당 케이스의 문제 풀이에 접근하고 시도해봅시다!
+    </p>
+    <br />
+    <h3 id="주요-학습-키워드">주요 학습 키워드</h3>
+    <ul>
+      <li>ReactDOM.render()</li>
+    </ul>
+    <br />
+    <h3 id="작성해주셔야-하는-question-파일경로">작성해주셔야 하는 question 파일경로</h3>
+    <p><code>./question/index.js</code></p>
+    <br />
+    <h3 id="실행-방법-및-의존성-모듈-설치">실행 방법 및 의존성 모듈 설치</h3>
+    <p>
+      경로 : <code>./question/index.html</code> <code>index.html</code><br />에 복잡한 Babel 설정을 하지 않기 위해 CDN이
+      포함되어 있으니 <code>live-server</code> 등을 이용해 확인하시면서 구현할 수 있습니다.
+    </p>
+    <br />
+    <h4 id="reference">Reference</h4>
+    <ul>
+      <li>
+        Understanding Rendering Behavior in React :
+        <a href="https://geekflare.com/react-rendering">https://geekflare.com/react-rendering</a>
+      </li>
+      <li>
+        React Components, Elements, and Instances :
+        <a href="https://medium.com/@dan_abramov/react-components-elements-and-instances-90800811f8ca"
+          >https://medium.com/@dan_abramov/react-components-elements-and-instances-90800811f8ca</a
+        >
+      </li>
+      <li>
+        React (Virtual) DOM Terminology :
+        <a href="https://gist.github.com/sebmarkbage/fcb1b6ab493b0c77d589"
+          >https://gist.github.com/sebmarkbage/fcb1b6ab493b0c77d589</a
+        >
+      </li>
+    </ul>
+  </body>
+</html>

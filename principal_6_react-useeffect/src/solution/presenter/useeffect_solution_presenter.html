@@ -1,0 +1,531 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Case6 : useEffect - 출제자 해설</title>
+    <link rel="preconnect" href="https://fonts.gstatic.com" />
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;700&display=swap" rel="stylesheet" />
+
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/gh/Microsoft/vscode/extensions/markdown-language-features/media/highlight.css"
+    />
+    <style>
+      /*
+              ==================== html => MD 작업 시, 꼭! 확인해주세요. ====================
+              1. Markdown All in One : Print current document to HTML 실행. (VScode extension)
+              2. 생성된 README.html에서 body 태그 안에 있는것들을 복사
+              3. 루트 폴더에 README_OOO.md 생성 (OOO : Case 이름)
+              4. ! 자동완성을 통해 기본 html 폼을 만들고, body태그 안에 <2>의 내용 붙여넣기
+              5. font / code style에 관련된 <link>세줄과 <style> 태그 안에 있는 내용 붙여넣기
+              6. 상단 <title> 태그 안에 <h2> 텍스트 삽입
+              7. <code> tag가 줄바꿈 될 때, class명으로 "code-inlineBlock" 넣어주기
+              8. <img>태그 경로 변경해주기
+              [ EXAMPLE ]
+              [ 변경 전 ] : 절대경로로 되어있음
+              <img
+                  width="600px"
+                  src="file:////Users/ming/Desktop/ui-component/case2_InfiniteScroll/example_image.gif"
+                />
+              [ 변경 후 ] : 상대경로로 수정
+              <img
+                  width="600px"
+                  src="./example_image.gif"
+                />
+              8. html 내에 <h3>실행 방법 및 의존성 모듈 설치</h3> 하위 내용 아래와 같이 수정
+              [ EXAMPLE ]
+              [ 변경 전 ] : p에 className 없음
+                <p>
+                  <strong>q1</strong>
+                  경로
+                  <code>./question/q1_js</code>
+                  index.html 열기
+                </p>
+              [ 변경 후 ] : p에 className 있음
+                <p>
+                  <strong>q1</strong>
+                  경로
+                  <code>./question/q1_js</code>
+                  <p class="excute-text">index.html 열기</p>
+                </p>
+          
+          
+              [ 변경 전 ] : p태그와 pre태그가 div로 감싸져있지 않음
+                <p>
+                  <strong>q4</strong>
+                  경로
+                  <code>./question/q4_react.js</code>
+                </p>
+          
+                <p>터미널</p>
+                <pre><code class="language-bash"><div>  $ npm install
+                $ npm start
+              </div></code></pre>
+          
+              [ 변경 후 ] : p태그와 pre태그가 div.code-wrap 으로 감싸져있음
+                <p>
+                  <strong>q4</strong>
+                  경로
+                  <code>./question/q4_react.js</code>
+                </p>
+          
+                <div class="code-wrap">
+                <p>터미널</p>
+                <pre>
+                  <code class="language-bash"><div>  $ npm install
+              $ npm start
+            </div></code></pre>
+            </div>
+            */
+
+      html {
+        overflow-x: hidden;
+        padding-bottom: 30px;
+      }
+
+      body {
+        font-family: 'Noto Sans KR', sans-serif;
+      }
+
+      h1,
+      h2,
+      h3,
+      h4,
+      h5,
+      h6,
+      ul,
+      ol,
+      li,
+      dl,
+      dt,
+      dd,
+      p,
+      table {
+        margin: 0;
+        padding: 0;
+        color: #494949;
+        letter-spacing: -0.025rem;
+        box-sizing: border-box;
+      }
+
+      h1,
+      h2,
+      h3,
+      h4,
+      h5,
+      h6 {
+        font-weight: 600;
+      }
+
+      a {
+        color: blue;
+      }
+
+      a img {
+        border: none;
+      }
+
+      img {
+        max-width: 100%;
+        vertical-align: middle;
+      }
+      img:nth-of-type(1) {
+        max-width: 50%;
+        display: block;
+        margin: 30px 0;
+      }
+
+      ul li {
+        list-style: none;
+      }
+
+      ul > li > ul {
+        margin: 0;
+        padding: 15px;
+      }
+      ul > li > ul > li {
+        list-style: circle;
+        margin-left: 25px;
+      }
+
+      ol > li > ul {
+        margin: 0;
+        padding: 15px;
+      }
+      ol > li > ul > li {
+        list-style: circle;
+        margin-left: 25px;
+      }
+
+      p {
+        line-height: 1.8;
+      }
+      /* STYLE */
+
+      body {
+        padding: 0;
+        margin: 0;
+        line-height: 1.6;
+      }
+
+      h2 {
+        padding: 50px 0;
+        color: #ffffff;
+        font-size: 2rem;
+        text-align: center;
+        background: linear-gradient(45deg, #ed234b, #ff6c89, #ff6fb7);
+      }
+
+      h2::before {
+        content: '#';
+        display: inline-block;
+        margin-right: 5px;
+        color: #ff9db0;
+        font-weight: 300;
+        font-size: 2.2rem;
+      }
+
+      h3 {
+        position: relative;
+        margin: 30px 20px;
+        padding-bottom: 15px;
+        color: #303030;
+        font-size: 1.6rem;
+        border-bottom: 1px solid #ededed;
+      }
+
+      blockquote {
+        margin: 20px;
+        padding: 20px;
+        background: #f2f2f2;
+      }
+
+      strong {
+        display: block;
+        margin-top: 10px;
+      }
+
+      .code-wrap {
+        position: relative;
+        background: #2f303b;
+        margin: 15px 0 0 0;
+      }
+
+      .code-wrap > p {
+        position: absolute;
+        left: 0;
+        top: 0;
+        padding: 2px 15px;
+        font-size: 0.7rem;
+        color: #ffffff;
+        text-align: center;
+        background: #61c8cc;
+      }
+
+      code {
+        background: #ededed;
+      }
+
+      .language-html > div,
+      .language-css > div,
+      .language-scss > div,
+      .language-javascript > div,
+      .language-typescript > div {
+        color: #fff;
+        padding: 30px 20px;
+        background: #2f303b;
+      }
+
+      code.language-bash div {
+        margin-top: -20px;
+        padding: 30px 20px;
+        font-size: 1rem;
+        color: #ffffff;
+        background: #2f303b;
+        box-sizing: border-box;
+      }
+
+      code::after {
+        content: '';
+        display: block;
+      }
+
+      code.code-inlineBlock::after {
+        content: '';
+        display: inline-block;
+      }
+
+      .excute-text {
+        font-size: 0.8rem;
+        font-weight: bold;
+        color: #ed234b;
+      }
+      /* 좌, 우 여백 */
+
+      ol,
+      ul {
+        margin: 20px;
+        padding: 20px;
+        background: #f2f2f2;
+      }
+
+      ol li {
+        margin-left: 15px;
+      }
+
+      li {
+        font-size: 0.85rem;
+      }
+
+      h4,
+      h5,
+      h6,
+      p,
+      img,
+      pre {
+        padding: 0 20px;
+      }
+    </style>
+  </head>
+  <body>
+    <h2 id="case7--useeffect---출제자-해설">Case6 : useEffect - 출제자 해설</h2>
+    <h3 id="html">HTML</h3>
+    <pre><code class="language-html"><div><span class="hljs-meta">&lt;!DOCTYPE <span class="hljs-meta-keyword">html</span>&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-name">html</span>&gt;</span>
+  <span class="hljs-tag">&lt;<span class="hljs-name">head</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">title</span>&gt;</span>React의 useEffect 따라해보기<span class="hljs-tag">&lt;/<span class="hljs-name">title</span>&gt;</span>
+  <span class="hljs-tag">&lt;/<span class="hljs-name">head</span>&gt;</span>
+  <span class="hljs-tag">&lt;<span class="hljs-name">body</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">div</span>&gt;</span>
+      <span class="hljs-tag">&lt;<span class="hljs-name">span</span>&gt;</span>Members Component<span class="hljs-tag">&lt;/<span class="hljs-name">span</span>&gt;</span>
+    <span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">div</span>&gt;</span>
+      <span class="hljs-tag">&lt;<span class="hljs-name">button</span> <span class="hljs-attr">id</span>=<span class="hljs-string">&quot;remove-btn&quot;</span>&gt;</span>Remove Component<span class="hljs-tag">&lt;/<span class="hljs-name">button</span>&gt;</span>
+    <span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">id</span>=<span class="hljs-string">&quot;result&quot;</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span>
+  <span class="hljs-tag">&lt;/<span class="hljs-name">body</span>&gt;</span>
+<span class="hljs-tag">&lt;/<span class="hljs-name">html</span>&gt;</span>
+</div></code></pre>
+    <h3 id="css">CSS</h3>
+    <pre><code class="language-css"><div><span class="hljs-selector-id">#result</span> {
+  <span class="hljs-attribute">background-color</span>: <span class="hljs-number">#fff</span>;
+}
+</div></code></pre>
+    <h3 id="js">JS</h3>
+    <h4 id="indexjs">index.js</h4>
+    <pre><code class="language-javascript"><div><span class="hljs-keyword">import</span> <span class="hljs-string">&#x27;./style.css&#x27;</span>
+
+<span class="hljs-keyword">import</span> Members <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;./question/Members&#x27;</span>
+
+<span class="hljs-keyword">const</span> excute = <span class="hljs-function">() =&gt;</span> {
+  <span class="hljs-built_in">document</span>.querySelector(<span class="hljs-string">&#x27;#remove-btn&#x27;</span>).addEventListener(<span class="hljs-string">&#x27;click&#x27;</span>, <span class="hljs-function">() =&gt;</span> {
+    targetEl.removeChild(member)
+  })
+
+  <span class="hljs-keyword">const</span> targetEl = <span class="hljs-built_in">document</span>.querySelector(<span class="hljs-string">&#x27;#result&#x27;</span>)
+
+  <span class="hljs-keyword">const</span> member = <span class="hljs-keyword">new</span> Members({ <span class="hljs-attr">list</span>: [] })
+  targetEl.appendChild(member)
+}
+
+excute()
+</div></code></pre>
+    <h4 id="membersjs">Members.js</h4>
+    <pre><code class="language-javascript"><div><span class="hljs-keyword">import</span> { h, create, diff, patch } <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;virtual-dom&#x27;</span>
+
+<span class="hljs-comment">/**
+ * <span class="hljs-doctag">@name </span>생성자 함수
+ * <span class="hljs-doctag">@param <span class="hljs-type">{Array}</span> <span class="hljs-variable">list</span></span>
+ * <span class="hljs-doctag">@description </span>생성자 함수로 최초 데이터를 받아서 virtual tree 구축과 함께 HTML node를 생성 및 저장한다.
+ */</span>
+<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">Members</span>(<span class="hljs-params">{ list }</span>) </span>{
+  <span class="hljs-comment">// virtual dom tree</span>
+  <span class="hljs-keyword">let</span> virtualDomTree = <span class="hljs-literal">null</span>
+  <span class="hljs-comment">// html node</span>
+  <span class="hljs-keyword">let</span> htmlNode = <span class="hljs-literal">null</span>
+  <span class="hljs-comment">// hook이 등록될때마다 state가 저장되는 변수.</span>
+  <span class="hljs-keyword">const</span> states = []
+  <span class="hljs-comment">// hook 실행 index</span>
+  <span class="hljs-keyword">let</span> currentState = <span class="hljs-number">0</span>
+  <span class="hljs-comment">// effect hook이 등록될때마다 effect가 저장되는 변수.</span>
+  <span class="hljs-keyword">const</span> effects = []
+  <span class="hljs-comment">// 현재 effect index</span>
+  <span class="hljs-keyword">let</span> currentEffect = <span class="hljs-number">0</span>
+
+  <span class="hljs-comment">/**
+   * <span class="hljs-doctag">@name <span class="hljs-variable">render</span></span>
+   * <span class="hljs-doctag">@param <span class="hljs-type">{*}</span> <span class="hljs-variable">newState</span></span>
+   * <span class="hljs-doctag">@description </span>state 변경에 따른 rendering
+   */</span>
+  <span class="hljs-keyword">const</span> render = <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">state</span>) </span>{
+    <span class="hljs-comment">// 새롭게 랜더링 하므로 초기화</span>
+    currentState = currentEffect = <span class="hljs-number">0</span>
+    <span class="hljs-comment">// 변경된 state 정보를 가지고 tree 를 갱신한다.</span>
+    <span class="hljs-keyword">const</span> newVirtualDomTree = setVirtualTreeNode(state)
+    <span class="hljs-comment">// 변경된 정보를 체크한다.</span>
+    <span class="hljs-keyword">const</span> changes = diff(virtualDomTree, newVirtualDomTree)
+
+    <span class="hljs-comment">// 기존 node에 변경된 tree 정보를 patch 한다.</span>
+    htmlNode = patch(htmlNode, changes)
+    <span class="hljs-comment">// 변경 된 tree 정보는 다시 새롭게 저장한다.</span>
+    virtualDomTree = newVirtualDomTree
+  }
+
+  <span class="hljs-comment">/**
+   * <span class="hljs-doctag">@name <span class="hljs-variable">useState</span></span>
+   * <span class="hljs-doctag">@param <span class="hljs-type">{*}</span> <span class="hljs-variable">value</span></span>
+   * <span class="hljs-doctag">@returns </span>[현재값, 변경 함수]
+   * <span class="hljs-doctag">@description </span>react useState함수와 같은 역할
+   */</span>
+  <span class="hljs-keyword">const</span> useState = <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">initialValue</span>) </span>{
+    states[currentState] = states[currentState] || initialValue
+    <span class="hljs-comment">// updateState 함수에서 currentState가 덮어 씌워지는 것을 방지.</span>
+    <span class="hljs-keyword">const</span> updateStateIndex = currentState
+    <span class="hljs-keyword">const</span> updateState = <span class="hljs-function">(<span class="hljs-params">newState</span>) =&gt;</span> {
+      states[updateStateIndex] = newState
+      <span class="hljs-comment">// data가 업데이트 되면 re render</span>
+      render(states[updateStateIndex])
+    }
+
+    <span class="hljs-comment">// 두번째 값인 함수로 state를 변경해야만 값이 바뀌도록 한다.</span>
+    <span class="hljs-keyword">return</span> [states[currentState++], updateState]
+  }
+
+  <span class="hljs-comment">/**
+   * <span class="hljs-doctag">@name <span class="hljs-variable">useEffect</span></span>
+   * <span class="hljs-doctag">@param <span class="hljs-type">{effect, deps}</span></span>
+   * <span class="hljs-doctag">@returns <span class="hljs-variable">void</span></span>
+   * <span class="hljs-doctag">@description </span>effect를 실행할 함수와 의존성 데이터를 array로 받는다.
+   */</span>
+  <span class="hljs-keyword">const</span> useEffect = <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">effect, deps</span>) </span>{
+    <span class="hljs-comment">// effect를 실행하기전 cleanup이 등록이 되어 있으면 실행 후 초기화 한다.</span>
+    <span class="hljs-keyword">if</span> (effects[currentEffect] &amp;&amp; effects[currentEffect].cleanup) {
+      effects[currentEffect].cleanup()
+      effects[currentEffect].cleanup = <span class="hljs-literal">undefined</span>
+    }
+
+    <span class="hljs-comment">// effect 및 deps를 저장한다.</span>
+    <span class="hljs-keyword">if</span> (!effects[currentEffect]) {
+      effects[currentEffect] = {
+        <span class="hljs-attr">effect</span>: <span class="hljs-literal">undefined</span>, <span class="hljs-comment">// effect 함수</span>
+        <span class="hljs-attr">prevDeps</span>: <span class="hljs-literal">undefined</span>, <span class="hljs-comment">// 이전 의존성 데이터.</span>
+        <span class="hljs-attr">newDeps</span>: <span class="hljs-literal">undefined</span>, <span class="hljs-comment">// 새로운 의존성 데이터.</span>
+        <span class="hljs-attr">cleanup</span>: <span class="hljs-literal">undefined</span>, <span class="hljs-comment">// cleanup을 실행할 함수.</span>
+      }
+    }
+    effects[currentEffect].newDeps = deps
+    effects[currentEffect].effect = effect
+    <span class="hljs-comment">// 다음 hook을 위해 증가.</span>
+    currentEffect++
+  }
+
+  <span class="hljs-comment">/**
+   * <span class="hljs-doctag">@name <span class="hljs-variable">executeEffect</span></span>
+   * <span class="hljs-doctag">@param <span class="hljs-type">{effect}</span></span>
+   * <span class="hljs-doctag">@returns <span class="hljs-variable">void</span></span>
+   * <span class="hljs-doctag">@description </span>rendering 후에 effect를 실행.
+   */</span>
+  <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">executeEffect</span>(<span class="hljs-params">effect</span>) </span>{
+    <span class="hljs-comment">// case 1) 의존성 데이터가 undefined일 경우에는 effect를 매번 실행</span>
+    <span class="hljs-comment">// case 2) 의존성 데이터가 있을 경우에는 데이터 변경 여부를 체크하여 effect를 실행</span>
+    <span class="hljs-keyword">if</span> (!effect.newDeps) {
+      <span class="hljs-comment">// deps가 undefinde 일 경우 effect를 항상 실행.</span>
+      <span class="hljs-keyword">const</span> cleanup = effect.effect()
+      effect.cleanup = cleanup
+    } <span class="hljs-keyword">else</span> {
+      <span class="hljs-comment">// 최초 effect 실행</span>
+      <span class="hljs-keyword">if</span> (!effect.prevDeps) {
+        <span class="hljs-keyword">const</span> cleanup = effect.effect()
+        effect.cleanup = cleanup
+        effect.prevDeps = effect.newDeps
+        <span class="hljs-keyword">return</span>
+      }
+      <span class="hljs-keyword">const</span> isChangedDeps = !effect.newDeps.every(<span class="hljs-function">(<span class="hljs-params">deps, index</span>) =&gt;</span> deps === effect.prevDeps[index])
+      <span class="hljs-comment">// deps가 빈 배열이라면 최초한번만 실행이 된다. why? 체크해야할 의존성 데이터가 없기 때문에</span>
+      <span class="hljs-keyword">if</span> (isChangedDeps) {
+        <span class="hljs-keyword">const</span> cleanup = effect.effect()
+        effect.cleanup = cleanup
+        effect.prevDeps = effect.newDeps
+      }
+    }
+  }
+
+  <span class="hljs-comment">/**
+   * <span class="hljs-doctag">@name <span class="hljs-variable">setVirtualTreeNode</span></span>
+   * <span class="hljs-doctag">@param <span class="hljs-type">{Array}</span> <span class="hljs-variable">list</span></span>
+   * <span class="hljs-doctag">@returns </span>virtual node
+   * <span class="hljs-doctag">@description </span>list를 인자로 받아 data가 binding 된 virtual tree 구축 및 action 함수 정의.
+   */</span>
+  <span class="hljs-keyword">const</span> setVirtualTreeNode = <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">list = []</span>) </span>{
+    <span class="hljs-keyword">const</span> [members, setMembers] = useState(list)
+
+    useEffect(<span class="hljs-function">() =&gt;</span> {
+      <span class="hljs-built_in">document</span>.title = <span class="hljs-string">`Member의 총인원은 <span class="hljs-subst">${members.length}</span>명 입니다.`</span>
+      <span class="hljs-keyword">return</span> <span class="hljs-function">() =&gt;</span> {
+        <span class="hljs-built_in">document</span>.title = <span class="hljs-string">&#x27;React의 useEffect 따라해보기.&#x27;</span>
+      }
+    }, [members.length])
+
+    <span class="hljs-keyword">const</span> onKeyUp = <span class="hljs-function">(<span class="hljs-params">event</span>) =&gt;</span> {
+      <span class="hljs-keyword">if</span> (<span class="hljs-built_in">window</span>.event.keyCode === <span class="hljs-number">13</span>) {
+        members.push(event.target.value)
+        event.target.value = <span class="hljs-string">&#x27;&#x27;</span>
+        setMembers(members)
+      }
+    }
+
+    <span class="hljs-keyword">const</span> addRow = <span class="hljs-function">() =&gt;</span> {
+      <span class="hljs-keyword">const</span> inputElement = htmlNode.querySelector(<span class="hljs-string">&#x27;#memberInput&#x27;</span>)
+      members.push(inputElement.value)
+      inputElement.value = <span class="hljs-string">&#x27;&#x27;</span>
+      setMembers(members)
+    }
+
+    <span class="hljs-keyword">return</span> h(<span class="hljs-string">&#x27;div&#x27;</span>, { <span class="hljs-attr">style</span>: <span class="hljs-string">&#x27;width: 100%; margin-top: 10px&#x27;</span> }, [
+      h(<span class="hljs-string">&#x27;div&#x27;</span>, { <span class="hljs-attr">style</span>: <span class="hljs-string">&#x27;width: 100%; position: relative;&#x27;</span> }, [
+        h(<span class="hljs-string">&#x27;input&#x27;</span>, { <span class="hljs-attr">id</span>: <span class="hljs-string">&#x27;memberInput&#x27;</span>, <span class="hljs-attr">type</span>: <span class="hljs-string">&#x27;text&#x27;</span>, <span class="hljs-attr">onkeyup</span>: <span class="hljs-function">(<span class="hljs-params">event</span>) =&gt;</span> onKeyUp(event) }, []),
+        h(<span class="hljs-string">&#x27;button&#x27;</span>, { <span class="hljs-attr">style</span>: <span class="hljs-string">&#x27;margin-left: 10px;&#x27;</span>, <span class="hljs-attr">onclick</span>: <span class="hljs-function">() =&gt;</span> addRow() }, [<span class="hljs-string">&#x27;Add&#x27;</span>]),
+      ]),
+      h(<span class="hljs-string">&#x27;div&#x27;</span>, { <span class="hljs-attr">id</span>: <span class="hljs-string">&#x27;list-container&#x27;</span>, <span class="hljs-attr">style</span>: <span class="hljs-string">&#x27;height: 300px; overflow: auto;&#x27;</span> }, [
+        members &amp;&amp; members.length
+          ? members.map(<span class="hljs-function">(<span class="hljs-params">item, index</span>) =&gt;</span> h(<span class="hljs-string">&#x27;span&#x27;</span>, { <span class="hljs-attr">key</span>: <span class="hljs-string">&#x27;item&#x27;</span> + index, <span class="hljs-attr">style</span>: <span class="hljs-string">&#x27;display: block;&#x27;</span> }, [item]))
+          : [],
+      ]),
+    ])
+  }
+
+  <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">addEvent</span>(<span class="hljs-params">htmlNode</span>) </span>{
+    <span class="hljs-comment">// 해당 이벤트로 dom update 변경을 감지하도록 한다. why? effect는 렌더링후에 실행되기 때문.</span>
+    htmlNode.addEventListener(<span class="hljs-string">&#x27;DOMNodeInserted&#x27;</span>, <span class="hljs-function">(<span class="hljs-params">event</span>) =&gt;</span> {
+      effects.forEach(<span class="hljs-function">(<span class="hljs-params">effect</span>) =&gt;</span> {
+        executeEffect(effect)
+      })
+    })
+    <span class="hljs-comment">// element가 삭제되면 (unmount 시점) cleanup을 실행한다.</span>
+    htmlNode.addEventListener(
+      <span class="hljs-string">&#x27;DOMNodeRemovedFromDocument&#x27;</span>,
+      <span class="hljs-function">(<span class="hljs-params">event</span>) =&gt;</span> {
+        effects.forEach(<span class="hljs-function">(<span class="hljs-params">effect</span>) =&gt;</span> {
+          <span class="hljs-keyword">if</span> (effect.cleanup) {
+            effect.cleanup()
+          }
+        })
+      },
+      <span class="hljs-literal">false</span>
+    )
+  }
+
+  <span class="hljs-comment">// virtual tree node를 갱신</span>
+  virtualDomTree = setVirtualTreeNode(list)
+  <span class="hljs-comment">//virtual tree node를 html node로 생성</span>
+  htmlNode = create(virtualDomTree)
+  addEvent(htmlNode)
+  <span class="hljs-keyword">return</span> htmlNode
+}
+
+<span class="hljs-keyword">export</span> <span class="hljs-keyword">default</span> Members
+</div></code></pre>
+  </body>
+</html>
