@@ -36,6 +36,10 @@ details를 쓰면 html 제공 동작을 그대로 활용하기 때문에 개발�
 
 리액트로 구현하는 경우 dom을 직접 제어하지 않고 toggle 되는 context의 id를 상태로 관리한다. 리렌더링 시 id와 일치하는 context component의 toggle 관련 props를 true로 설정해준다.
 
+react createPortal 정보를 다른 계층의 요소로 전달할 때 사용. floating ui를 제공할 때 유용하게 쓰인다. 노출하지 않는 데이터를 필요시에만 개입한다는 특징이 있다. 팝오버 되야되는 정보가 민감한 정보라면 사용을 고려하는 것이 좋다.
+
+html과 css 로 처리할 수 있는경우 최대한 활용하는 것이 좋다. javascript 테스트 과정을 줄일 수 있고, 코드량이 주는 장점이 있기 때문이다.
+
 ## Redux
 
 **./principal_13_redux**
