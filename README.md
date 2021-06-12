@@ -40,6 +40,25 @@ react createPortal 정보를 다른 계층의 요소로 전달할 때 사용. fl
 
 html과 css 로 처리할 수 있는경우 최대한 활용하는 것이 좋다. javascript 테스트 과정을 줄일 수 있고, 코드량이 주는 장점이 있기 때문이다.
 
+## Scroll Spy
+
+**./2_scroll_spy**
+스크롤을 내릴 때 화면내용과 메뉴의 내용을 일치시키는 ui 구현. 메뉴 클릭 시 해당 화면으로 스크롤위치 이동
+
+[요구사항](./2_scroll-spy/README.md)
+
+[js로 기본기능 구현](./2_scroll-spy/question/q1_js_1/index.js)
+
+[resize에도 동작하게 적용](./2_scroll-spy/question/q2_js_2/index.js)
+
+[resize listener 적용](./2_scroll-spy/question\q3_js_resize_listener\index.js)
+
+[throttle, debounce 적용](./2_scroll-spy/question/q4_js_throttle/index.js)
+
+[Intersection Observer 활용](./2_scroll-spy\question\q5_js_Intersection_Observer\index.js)
+
+[Intersection Observer & react 활용](./2_scroll-spy\question\q6_react_Intersaction_Observer\src\App.js)
+
 ## Redux
 
 **./principal_13_redux**
