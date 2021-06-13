@@ -1,20 +1,20 @@
-const INCREMENT = 'INCREMENT';
-const DECREMENT = 'DECREMENT';
+const INCREMENT = "INCREMENT";
+const DECREMENT = "DECREMENT";
 
 const initState = {
-  count: 0
+  count: 0,
 };
 
 const reducer = (state = initState, { type }) => {
   if (type === DECREMENT) {
     return {
-      count: state.count - 1
+      count: state.count - 1,
     };
   }
 
   if (type === INCREMENT) {
     return {
-      count: state.count + 1
+      count: state.count + 1,
     };
   }
 
@@ -50,19 +50,22 @@ const useStore = () => {
  *
  * @returns 선택된 Redux Store 상태
  */
-const useSelector = selector => {
+const useSelector = (selector) => {
   // TODO: Write code
   const store = useStore();
-  console.log(store.getState());
+  const [, forceRender] = React.useReducer((s) => s + 1, 0);
+  React.useEffect(() => {
+    forceRender();
+  }, [store, forceRender]);
   return selector(store.getState());
 };
 
 const App = () => {
-  const count = useSelector(state => state.count);
+  const count = useSelector((state) => state.count);
 
   return (
-    <div className='app-container'>
-      <span className='count'>{count}</span>
+    <div className="app-container">
+      <span className="count">{count}</span>
     </div>
   );
 };
@@ -73,5 +76,5 @@ ReactDOM.render(
   <ReactRedux.Provider store={store}>
     <App />
   </ReactRedux.Provider>,
-  document.getElementById('root')
+  document.getElementById("root")
 );

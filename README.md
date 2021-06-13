@@ -103,6 +103,10 @@ Redux Store, Redux state에 접근할 수 있는 훅 작성
 
 [js로 구현](principal_14_react-redux-use-selector\question\index.js)
 
+**memo**
+
+react-redux 라이브러리는 리액트와 리덕스를 연동할 때 여러 유틸리티를 제공한다.
+
 **./principal_15_react-redux-use-dispatch/question/index.js**
 
 [js로 구현](principal_15_react-redux-use-dispatch/question/index.js)
