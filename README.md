@@ -107,6 +107,10 @@ Redux Store, Redux state에 접근할 수 있는 훅 작성
 
 react-redux 라이브러리는 리액트와 리덕스를 연동할 때 여러 유틸리티를 제공한다.
 
+**useStore**는 Provider로 제공되는 store 값을 반환한다.
+
+**useSelector** 는 인수로 받은 콜백함수로 어떤상태를 반환할 지 결정한다. 함수 코드 내에 React Hook인 useReducer 와 useEffect를 사용하여 상태 업데이트 시마다 리렌더링을 하도록하는 기능이 구현되어 있다.
+
 **./principal_15_react-redux-use-dispatch/question/index.js**
 
 [js로 구현](principal_15_react-redux-use-dispatch/question/index.js)
