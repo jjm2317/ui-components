@@ -1,4 +1,4 @@
-import "./style.css";
+// import "./style.css";
 
 const navElem = document.querySelector("#nav");
 const navItems = Array.from(navElem.children);
@@ -7,30 +7,34 @@ const contentItems = Array.from(contentsElem.children);
 
 let offsetTops = [];
 const getOffsetTops = () => {
-  // do something
+  offsetTops = contentItems.map(({ offsetTop, clientHeight }) => [
+    offsetTop - clientHeight / 2,
+    offsetTop + clientHeight / 2,
+  ]);
 };
 getOffsetTops();
 
-window.addEventListener("scroll", e => {
+console.log(offsetTops);
+window.addEventListener("scroll", (e) => {
   const { scrollTop } = e.target.scrollingElement;
-  const targetIndex = offsetTops.findIndex(([from, to]) => (
-    scrollTop >= from && scrollTop < to
-  ))
+  const targetIndex = offsetTops.findIndex(
+    ([from, to]) => scrollTop >= from && scrollTop < to
+  );
   Array.from(navElem.children).forEach((c, i) => {
-    if (i !== targetIndex) c.classList.remove('on');
-    else c.classList.add('on');
+    if (i !== targetIndex) c.classList.remove("on");
+    else c.classList.add("on");
   });
 });
 
 window.addEventListener("resize", getOffsetTops);
 
-navElem.addEventListener("click", e => {
+navElem.addEventListener("click", (e) => {
   const targetElem = e.target;
   if (targetElem.tagName === "BUTTON") {
     const targetIndex = navItems.indexOf(targetElem.parentElement);
     contentItems[targetIndex].scrollIntoView({
       block: "start",
-      behavior: "smooth"
+      behavior: "smooth",
     });
   }
 });
