@@ -4,11 +4,24 @@ const navElem = document.querySelector("#nav");
 const navItems = Array.from(navElem.children);
 const contentsElem = document.querySelector("#contents");
 const contentItems = Array.from(contentsElem.children);
-const getOffsetTops = () =>
-  contentItems.map(({ offsetTop, clientHeight }) => [
+const getOffsetTops = (() => {
+  let innerHeight = window.innerHeight;
+  let ofsList = contentItems.map(({ offsetTop, clientHeight }) => [
     offsetTop - clientHeight / 2,
     offsetTop + clientHeight / 2,
   ]);
+  return () => {
+    if (innerHeight !== window.innerHeight) {
+      innerHeight = window.innerHeight;
+      ofsList = contentItems.map(({ offsetTop, clientHeight }) => [
+        offsetTop - clientHeight / 2,
+        offsetTop + clientHeight / 2,
+      ]);
+      return ofsList;
+    }
+    return ofsList;
+  };
+})();
 
 window.addEventListener("scroll", (e) => {
   const { scrollTop } = e.target.scrollingElement;
