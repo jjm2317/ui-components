@@ -65,6 +65,10 @@ offsetTop 은 전체 body 중 해당요소의 top의 y좌표값이다.
 clientHeight은 요소의 높이 값이다.
 dom의 scrollingElement.scrollTop은 전체 body에서 현재 스크롤이 얼마나 되어 있는지를 나타내는 값이다.
 clientHight값의 절반을 더하고 빼주는 이유는 scroll spy효과의 자연스러움을 더하기 위함이지만, 기획적인 판단에 의해 바뀌어도 상관없다.
+고정형인 경우에 상관없지만 브라우저 크기에 따라 요소 높이가 변하는 반응형 웹의 경우, resize event에 대응하여 offsetTop과 clientheight를 재계산 해주어야한다.
+가장 쉽게는 요소값들을 함수형으로 변환하여 scroll event 발생시마다 호출하여 재계산하는 방법이 있지만, 이는 요소를 모두 순회하는 작업이고, resize가 발생하지 않았을 시에도 재계산되므로 비효율적이다.
+대신, 클로져를 활용하여 window.innerheight값이 변할 때만 재계산을 해주는 방법이 더 효율적이다.
+가장 최적의 방법은 resize event listener를 등록하여 resize event 발생시에만 재계산을 하는 것이다.
 
 scroll spy와 별개로, navigation button 클릭 시 해당 요소위치로 스크롤 되는 기능은 다음과 같이 구현한다.
 navigation item list중 클릭된 item 의 index값을 찾아서 content item list의 해당 index의 요소로 이동한다. 이동하는 기능은 scrollIntoView 메서드를 사용한다.

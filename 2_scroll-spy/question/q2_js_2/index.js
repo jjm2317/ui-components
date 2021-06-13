@@ -5,21 +5,18 @@ const navItems = Array.from(navElem.children);
 const contentsElem = document.querySelector("#contents");
 const contentItems = Array.from(contentsElem.children);
 const getOffsetTops = (() => {
-  let innerHeight = window.innerHeight;
-  let ofsList = contentItems.map(({ offsetTop, clientHeight }) => [
-    offsetTop - clientHeight / 2,
-    offsetTop + clientHeight / 2,
-  ]);
+  let innerHeight = 0;
+  let result = [];
   return () => {
-    if (innerHeight !== window.innerHeight) {
-      innerHeight = window.innerHeight;
-      ofsList = contentItems.map(({ offsetTop, clientHeight }) => [
-        offsetTop - clientHeight / 2,
-        offsetTop + clientHeight / 2,
-      ]);
-      return ofsList;
+    if (innerHeight === window.innerHeight) {
+      return result;
     }
-    return ofsList;
+    innerHeight = window.innerHeight;
+    result = contentItems.map(({ offsetTop, clientHeight }) => [
+      offsetTop - clientHeight / 2,
+      offsetTop + clientHeight / 2,
+    ]);
+    return result;
   };
 })();
 
