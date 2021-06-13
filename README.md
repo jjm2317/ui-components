@@ -59,6 +59,18 @@ html과 css 로 처리할 수 있는경우 최대한 활용하는 것이 좋다.
 
 [Intersection Observer & react 활용](./2_scroll-spy\question\q6_react_Intersaction_Observer\src\App.js)
 
+**memo**
+스크롤을 감지하여 navigation 메뉴에 적용
+offsetTop 은 전체 body 중 해당요소의 top의 y좌표값이다.
+clientHeight은 요소의 높이 값이다.
+dom의 scrollingElement.scrollTop은 전체 body에서 현재 스크롤이 얼마나 되어 있는지를 나타내는 값이다.
+clientHight값의 절반을 더하고 빼주는 이유는 scroll spy효과의 자연스러움을 더하기 위함이지만, 기획적인 판단에 의해 바뀌어도 상관없다.
+
+scroll spy와 별개로, navigation button 클릭 시 해당 요소위치로 스크롤 되는 기능은 다음과 같이 구현한다.
+navigation item list중 클릭된 item 의 index값을 찾아서 content item list의 해당 index의 요소로 이동한다. 이동하는 기능은 scrollIntoView 메서드를 사용한다.
+해당 메서드의 인수는 객체형태로 전달하는데 view의 어느 위치로 어떻게 이동할 지 설정할 수 있다.
+block 프로퍼티에 start값을 주면 view의 시작지점을 요소의 시작지점과 일치시키며, behavior 프로퍼티에 smooth를 할당하면 부드러운 효과로 스크롤링이 된다.
+
 ## Redux
 
 **./principal_13_redux**

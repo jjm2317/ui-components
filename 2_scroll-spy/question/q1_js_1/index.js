@@ -6,10 +6,8 @@ const contentsElem = document.querySelector("#contents");
 const contentItems = Array.from(contentsElem.children);
 const offsetTops = contentItems.map((elem) => {
   const [ofs, clh] = [elem.offsetTop, elem.clientHeight];
-  console.log(ofs, clh);
   return [ofs - clh / 2, ofs + clh / 2];
 });
-console.log(navElem, navItems, contentsElem, contentItems);
 window.addEventListener("scroll", (e) => {
   const { scrollTop } = e.target.scrollingElement;
   const navIndex = offsetTops.findIndex(
