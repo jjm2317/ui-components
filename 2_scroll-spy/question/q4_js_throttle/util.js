@@ -5,7 +5,7 @@ export const throttle = (func, delay) => {
     if (throttled) return;
     throttled = true;
     setTimeout(() => {
-      func.call(null, ...arg);
+      func.call(...arg);
       throttled = false;
     }, delay);
   };

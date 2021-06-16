@@ -53,7 +53,7 @@ html과 css 로 처리할 수 있는경우 최대한 활용하는 것이 좋다.
 
 [resize listener 적용](./2_scroll-spy/question\q3_js_resize_listener\index.js)
 
-[throttle, debounce 적용](./2_scroll-spy/question/q4_js_throttle/index.js)
+[throttle, debounce 적용](./2_scroll-spy/question/q4_js_throttle/util.js)
 
 [Intersection Observer 활용](./2_scroll-spy\question\q5_js_Intersection_Observer\index.js)
 
@@ -84,6 +84,11 @@ navigation item list중 클릭된 item 의 index값을 찾아서 content item li
 해당 메서드의 인수는 객체형태로 전달하는데 view의 어느 위치로 어떻게 이동할 지 설정할 수 있다.
 
 block 프로퍼티에 start값을 주면 view의 시작지점을 요소의 시작지점과 일치시키며, behavior 프로퍼티에 smooth를 할당하면 부드러운 효과로 스크롤링이 된다.
+
+throttle을 적용할 때 delay 250ms~300ms 가 적당하다. 해당 시간이 사람이 잘 인지하지 못하면서도 충분히 짧은 시간 간격이다. throttle과 debounce의 섬세한 기능 적용을 위해서는 lodash등의 라이브러리를 사용하는 것이 좋다.
+
+IntersectingObserver 사용시 브라우저 크기를 resize 하였을 때도 scrollspy가 바로 적용된다는 장점이 있다.
+offsetTop을 직접 계산 안해도되는 편리함도 있다.
 
 ## Redux
 
