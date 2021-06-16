@@ -8,18 +8,24 @@ const pages = Array.from({ length: 8 }).map((_, i) => i + 1);
 const App = () => {
   const [viewIndex, setViewIndex] = useState(0);
   const contentRef = useRef([]);
-  const moveToPage = index => () => {
+  const moveToPage = (index) => () => {
     // do something
+    contentRef.current[index].scrollIntoView({
+      block: "start",
+      behavior: "smooth",
+    });
   };
 
   const scrollSpyObserver = new IntersectionObserver(
-    entries => {
-      // do something
+    (entries) => {
+      const item = entries.find((content) => content.isIntersecting)?.target;
+      const index = contentRef.current.indexOf(item);
+      setViewIndex(index);
     },
     {
       root: null,
       rootMargin: "0px",
-      threshold: 0.5
+      threshold: 0.5,
     }
   );
 
