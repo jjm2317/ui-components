@@ -90,6 +90,20 @@ throttle을 적용할 때 delay 250ms~300ms 가 적당하다. 해당 시간이 �
 IntersectingObserver 사용시 브라우저 크기를 resize 하였을 때도 scrollspy가 바로 적용된다는 장점이 있다.
 offsetTop을 직접 계산 안해도되는 편리함도 있다.
 
+```js
+// ref forward
+//App.js
+return (
+   <Content ref={r => /*some*/}/>
+)
+
+
+{
+const Content= (ref) => <div ref={ref}></div>
+export default forwardRef(Content)
+}
+```
+
 ## Redux
 
 **./principal_13_redux**
