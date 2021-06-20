@@ -104,6 +104,20 @@ export default forwardRef(Content)
 }
 ```
 
+## Infinite Scroll
+
+**./3_infinite-scroll**
+
+무한 스크롤 목록 뷰 구현
+
+[js로 구현](./3_Infinite-scroll\question\q1_js\index.js)
+
+[debounce, throttle 적용](3_Infinite-scroll\question\q2_js_debounce_trottle\index.js)
+
+[IntersectionObserver 사용](3_Infinite-scroll\question\q3_js_Intersection_Observer\index.js)
+
+[React&IntersectionObserver](3_Infinite-scroll\question\q4_react_Intersaction_Observer\src\App.js)
+
 ## Redux
 
 **./principal_13_redux**
