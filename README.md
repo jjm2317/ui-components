@@ -51,13 +51,13 @@ html과 css 로 처리할 수 있는경우 최대한 활용하는 것이 좋다.
 
 [resize에도 동작하게 적용](./2_scroll-spy/question/q2_js_2/index.js)
 
-[resize listener 적용](./2_scroll-spy/question\q3_js_resize_listener\index.js)
+[resize listener 적용](./2_scroll-spy/question/q3_js_resize_listener\index.js)
 
 [throttle, debounce 적용](./2_scroll-spy/question/q4_js_throttle/util.js)
 
-[Intersection Observer 활용](./2_scroll-spy\question\q5_js_Intersection_Observer\index.js)
+[Intersection Observer 활용](./2_scroll-spy/question/q5_js_Intersection_Observer/index.js)
 
-[Intersection Observer & react 활용](./2_scroll-spy\question\q6_react_Intersaction_Observer\src\App.js)
+[Intersection Observer & react 활용](./2_scroll-spy/question/q6_react_Intersaction_Observer/src/App.js)
 
 **memo**
 
@@ -110,13 +110,13 @@ export default forwardRef(Content)
 
 무한 스크롤 목록 뷰 구현
 
-[js로 구현](./3_Infinite-scroll\question\q1_js\index.js)
+[js로 구현](./3_Infinite-scroll/question/q1_js/index.js)
 
-[debounce, throttle 적용](3_Infinite-scroll\question\q2_js_debounce_trottle\index.js)
+[debounce, throttle 적용](./3_Infinite-scroll/question/q2_js_debounce_trottle/index.js)
 
-[IntersectionObserver 사용](3_Infinite-scroll\question\q3_js_Intersection_Observer\index.js)
+[IntersectionObserver 사용](./3_Infinite-scroll/question/q3_js_Intersection_Observer/index.js)
 
-[React&IntersectionObserver](3_Infinite-scroll\question\q4_react_Intersaction_Observer\src\App.js)
+[React&IntersectionObserver](./3_Infinite-scroll/question/q4_react_Intersaction_Observer/src/App.js)
 
 ## Redux
 
@@ -134,7 +134,7 @@ getState: createStore 함수내의 상태값을 참조하는 클로져이다.
 
 Redux Store, Redux state에 접근할 수 있는 훅 작성
 
-[js로 구현](principal_14_react-redux-use-selector\question\index.js)
+[js로 구현](./principal_14_react-redux-use-selector/question/index.js)
 
 **memo**
 
@@ -146,4 +146,4 @@ react-redux 라이브러리는 리액트와 리덕스를 연동할 때 여러 �
 
 **./principal_15_react-redux-use-dispatch/question/index.js**
 
-[js로 구현](principal_15_react-redux-use-dispatch/question/index.js)
+[js로 구현](./principal_15_react-redux-use-dispatch/question/index.js)
