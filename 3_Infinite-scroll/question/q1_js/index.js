@@ -12,8 +12,11 @@ const loadMore = async () => {
   target.classList.remove("loading");
 };
 
-const onScroll = e => {
+const onScroll = (e) => {
   // do something (hint: e.target.scrollingElement)
+  const { clientHeight, scrollTop, scrollHeight } = e.target.scrollingElement;
+
+  if (Math.ceil(clientHeight + scrollTop) >= scrollHeight) loadMore();
 };
 
 document.addEventListener("scroll", onScroll);
