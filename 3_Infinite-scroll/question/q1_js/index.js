@@ -1,23 +1,23 @@
-import "./style.css";
-import renderList from "./listRenderer";
+import './style.css';
+import renderList from './listRenderer';
 
-const app = document.querySelector("#app");
-const fetchMoreTrigger = document.querySelector("#fetchMore");
+const app = document.querySelector('#app');
+const fetchMoreTrigger = document.querySelector('#fetchMore');
 let page = 0;
 
 const loadMore = async () => {
   const target = page ? fetchMoreTrigger : app;
-  target.classList.add("loading");
+  target.classList.add('loading');
   await renderList(page++);
-  target.classList.remove("loading");
+  target.classList.remove('loading');
 };
 
-const onScroll = (e) => {
+const onScroll = e => {
   // do something (hint: e.target.scrollingElement)
   const { clientHeight, scrollTop, scrollHeight } = e.target.scrollingElement;
 
-  if (Math.ceil(clientHeight + scrollTop) >= scrollHeight) loadMore();
+  if ((clientHeight + scrollTop) / scrollHeight >= 0.95) loadMore();
 };
 
-document.addEventListener("scroll", onScroll);
+document.addEventListener('scroll', onScroll);
 loadMore();
