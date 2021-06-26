@@ -118,6 +118,11 @@ export default forwardRef(Content)
 
 [React&IntersectionObserver](./3_Infinite-scroll/question/q4_react_Intersaction_Observer/src/App.js)
 
+**memo**
+
+scrollingElement프로퍼티에서 scrollHeight, scrollTop, clientHeight 를 조회할 수 있다. 각각은 전체 높이, 스크롤된 높이, 스크롤바에 해당하는 높이이다.
+scrollTop(스크롤된 높이) 과 clientHeight(뷰의 높이) 의 합이 scrollHeight 와 같거나 클 때 새로운 페이지를 불러온다.
+
 ## Redux
 
 **./principal_13_redux**

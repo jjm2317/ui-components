@@ -5,6 +5,9 @@ body {
   position: relative;
   padding: 10px 10px 0;
 }
+#app.scrolling:before {
+  content
+}
 #app.loading {
   height: 100vh;
 }
