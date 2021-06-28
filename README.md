@@ -123,6 +123,8 @@ export default forwardRef(Content)
 scrollingElement프로퍼티에서 scrollHeight, scrollTop, clientHeight 를 조회할 수 있다. 각각은 전체 높이, 스크롤된 높이, 스크롤바에 해당하는 높이이다.
 scrollTop(스크롤된 높이) 과 clientHeight(뷰의 높이) 의 합이 scrollHeight 와 같거나 클 때 새로운 페이지를 불러온다.
 
+성능 최적화를 위해 IntersectionObserver API 를 사용할 수도 있다. isIntersecting 프로퍼티를 이용한다. observer 등록 후 로딩중 isIntersecting 프로퍼티가 true로 바뀌는 버그가 있으모로, time 프로퍼티를 추가로 이용하여 1초 이후에 무한 스크롤이 작동하도록 하였다.
+
 ## Redux
 
 **./principal_13_redux**

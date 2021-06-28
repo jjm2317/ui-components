@@ -3,7 +3,7 @@ import React, { useRef, useEffect } from "react";
 const FetchMore = ({ loading, setPage }) => {
   const fetchMoreTrigger = useRef(null);
   const fetchMoreObserver = new IntersectionObserver(([{ isIntersecting }]) => {
-    // do something
+    if (isIntersecting) setPage((page) => page + 1);
   });
 
   useEffect(() => {
