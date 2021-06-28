@@ -15,14 +15,9 @@ const fetchMore = async () => {
 };
 
 const fetchMoreObserver = new IntersectionObserver(
-  ([{ isIntersecting }]) => {
-    console.log(isIntersecting);
-    isIntersecting && fetchMore();
-  },
-  {
-    root: document,
-    rootMargin: "5%",
-    threshold: 0,
+  ([{ isIntersecting, time }]) => {
+    console.log(isIntersecting, time);
+    if (isIntersecting && time > 1000) fetchMore();
   }
 );
 
@@ -31,16 +26,16 @@ fetchMoreObserver.observe(fetchMoreTrigger);
 
 fetchMore();
 
-let isScroll = false;
-let scrollTimerId = null;
-document.onscroll = () => {
-  if (!isScroll) isScroll = true;
-  console.log(isScroll);
-  if (scrollTimerId) clearTimeout(scrollTimerId);
-  scrollTimerId = setTimeout(() => {
-    isScroll = false;
-    console.log(isScroll);
-  }, 300);
-};
+// let isScroll = false;
+// let scrollTimerId = null;
+// document.onscroll = () => {
+//   if (!isScroll) isScroll = true;
+//   console.log(isScroll);
+//   if (scrollTimerId) clearTimeout(scrollTimerId);
+//   scrollTimerId = setTimeout(() => {
+//     isScroll = false;
+//     console.log(isScroll);
+//   }, 300);
+// };
 
-const timerId = console.log(1);
+// const timerId = console.log(1);
