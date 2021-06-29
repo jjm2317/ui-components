@@ -125,6 +125,18 @@ scrollTop(스크롤된 높이) 과 clientHeight(뷰의 높이) 의 합이 scroll
 
 성능 최적화를 위해 IntersectionObserver API 를 사용할 수도 있다. isIntersecting 프로퍼티를 이용한다. observer 등록 후 로딩중 isIntersecting 프로퍼티가 true로 바뀌는 버그가 있으모로, time 프로퍼티를 추가로 이용하여 1초 이후에 무한 스크롤이 작동하도록 하였다.
 
+## React
+
+**./principal_1_jsx-and-react-element**
+
+리액트는 선언형으로 작성한 jsx 코드를 javascript로 인식할 수 있도록한다.
+React.createElement를 구현하고, JSX Element를 JSON 포맷으로 표시한다.
+
+- jsx란
+
+javascript를 확장한 문법이다.
+빌드 시 babel에 의해 javascript로 변환된다.
+
 ## Redux
 
 **./principal_13_redux**
