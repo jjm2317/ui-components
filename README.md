@@ -137,6 +137,10 @@ React.createElement를 구현하고, JSX Element를 JSON 포맷으로 표시한�
 javascript를 확장한 문법이다.
 빌드 시 babel에 의해 javascript로 변환된다.
 
+jsx 어노테이션(@jsx) 를 기술하면 바벨에서 어떤 노드를 jsx로 바라보고 트랜스파일링할 지 결정할 수 있다.
+
+createElement의 세번째 인수인 children에서, 각 child 가 텍스트일지 노드일지 알 수 없다. 그래서 map 고차함수로 createTextElement를 적용할 value를 구분한다.
+
 ## Redux
 
 **./principal_13_redux**
