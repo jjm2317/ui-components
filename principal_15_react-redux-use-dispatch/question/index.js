@@ -1,20 +1,20 @@
-const INCREMENT = "INCREMENT";
-const DECREMENT = "DECREMENT";
+const INCREMENT = 'INCREMENT';
+const DECREMENT = 'DECREMENT';
 
 const initState = {
-  count: 0,
+  count: 0
 };
 
 const reducer = (state = initState, { type }) => {
   if (type === DECREMENT) {
     return {
-      count: state.count - 1,
+      count: state.count - 1
     };
   }
 
   if (type === INCREMENT) {
     return {
-      count: state.count + 1,
+      count: state.count + 1
     };
   }
 
@@ -37,12 +37,12 @@ const useStore = () => {
  *
  * @returns 선택된 Redux Store 상태
  */
-const useSelector = (selector) => {
+const useSelector = selector => {
   const store = useStore();
 
   // TODO: Write Refactoring code
 
-  const [, forceRender] = React.useReducer((s) => s + 1, 0);
+  const [, forceRender] = React.useReducer(s => s + 1, 0);
 
   React.useEffect(() => {
     store.subscribe(() => {
@@ -70,25 +70,25 @@ const useDispatch = () => {
 };
 
 const App = () => {
-  const counter = useSelector((state) => state.count);
+  const counter = useSelector(state => state.count);
   const dispatch = useDispatch();
 
   const onDecrement = () => {
     dispatch({
-      type: DECREMENT,
+      type: DECREMENT
     });
   };
 
   const onIncrement = () => {
     dispatch({
-      type: INCREMENT,
+      type: INCREMENT
     });
   };
 
   return (
-    <div className="app-container">
-      <span className="count">{counter}</span>
-      <div className="btn-group">
+    <div className='app-container'>
+      <span className='count'>{counter}</span>
+      <div className='btn-group'>
         <button onClick={onDecrement}>
           <strong>-</strong>
         </button>
@@ -106,5 +106,5 @@ ReactDOM.render(
   <ReactRedux.Provider store={store}>
     <App />
   </ReactRedux.Provider>,
-  document.getElementById("root")
+  document.getElementById('root')
 );

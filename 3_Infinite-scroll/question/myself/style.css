@@ -1,0 +1,22 @@
+#container {
+  display: flex;
+  justify-content: center;
+}
+
+#app {
+  width: 360px;
+  height: 640px;
+  background-color: #ff0;
+  overflow-y: scroll;
+}
+
+li {
+  height: 100px;
+}
+
+#fetchMore.loading::after {
+  content: 'loading';
+  width: 100px;
+  height: 50px;
+  background-color: pink;
+}
