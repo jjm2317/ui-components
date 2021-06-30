@@ -125,6 +125,18 @@ scrollTop(스크롤된 높이) 과 clientHeight(뷰의 높이) 의 합이 scroll
 
 성능 최적화를 위해 IntersectionObserver API 를 사용할 수도 있다. isIntersecting 프로퍼티를 이용한다. observer 등록 후 로딩중 isIntersecting 프로퍼티가 true로 바뀌는 버그가 있으모로, time 프로퍼티를 추가로 이용하여 1초 이후에 무한 스크롤이 작동하도록 하였다.
 
+## Dark mode
+
+**./4_dark-mode**
+
+토글 버튼을 클릭하면 테마가 뷰에 반영되도록 구현
+
+[js로 구현(로컬스토리지)](./4_dark-mode/solution/1.js-1/index.js)
+
+[js로 구현(사용자 OS 테마)](./4_dark-mode/solution/2.js-2/index.js)
+
+[react로 구현](./4_dark-mode/solution/3.react/src/App.js)
+
 ## React
 
 **./principal_1_jsx-and-react-element**
