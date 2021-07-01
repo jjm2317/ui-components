@@ -10,7 +10,9 @@ document.addEventListener("DOMContentLoaded", () => {
   } else {
     localStorage.setItem("theme", "light");
   }
-  body.style.visibility = "visible";
+  window.addEventListener("load", () => {
+    setTimeout(() => (body.style.visibility = "visible"), 80);
+  });
 });
 
 // 4. 토글 버튼을 클릭하면 로컬 스토리지에 테마를 저장하고 저장된 테마를 기준으로 다시 렌더링한다.
