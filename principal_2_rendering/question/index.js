@@ -15,15 +15,18 @@ function createTextElement(value) {
 }
 
 function render({ props, type }, container) {
-  if (type === "TEXT_ELEMENT") {
-    container.innerHTML = props.nodeValue;
-    return;
-  }
-  const newContainer = document.createElement(type);
+  const childContainer = Object.entries(props).reduce(
+    (totalNode, [key, value]) => {
+      if (key !== "children") totalNode[key] = value;
+    },
+    type === "TEXT_ELEMENT"
+      ? document.createTextNode("")
+      : document.createElement(type)
+  );
   props.children.forEach((child) => {
-    render(child, newContainer);
-    container.appendChild(newContainer);
+    render(child, childContainer);
   });
+  container.appendChild(childContainer);
 }
 
 const React = {
