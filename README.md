@@ -137,6 +137,19 @@ scrollTop(스크롤된 높이) 과 clientHeight(뷰의 높이) 의 합이 scroll
 
 [react로 구현](./4_dark-mode/solution/3.react/src/App.js)
 
+**memo**
+
+Window.localStorage 사용
+
+- localStorage.setItem(key, value)
+  - localStorage에 key: value 값을 문자열로 저장
+- localStorage.getItem(key)
+  - localStorage에서 key에 해당하는 value 를 반환
+- localStrorage.removeItem(key)
+  - localStorage에서 key와 해당하는 value를 제거
+- localStorage.clear();
+  - localStorage에 저장된 모든 key, value를 제거
+
 ## React
 
 **./principal_1_jsx-and-react-element**
