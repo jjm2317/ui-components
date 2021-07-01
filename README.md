@@ -139,6 +139,14 @@ scrollTop(스크롤된 높이) 과 clientHeight(뷰의 높이) 의 합이 scroll
 
 **memo**
 
+dark mode 에서 차이가 발생하는 부분은 토글 버튼(배경, 버튼 위치), 배경 색, 텍스트 색이다.
+이 예제에서는 body 클래스의 dark 여부에 따라 다른 스타일이 적용되도록 하였지만, js로 다른 css 파일을 로딩하도록 제어하는 방식도 가능하다. 또한 css 에서 제공하는 변수를 사용할 수도 있다.
+
+토글버튼
+
+body의 theme가 토글되면 position의 left 값이 바뀐다.
+각 theme의 텍스트는 50%씩 영역을 차지하도록 한다.
+
 Window.localStorage 사용
 
 - localStorage.setItem(key, value)
