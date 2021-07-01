@@ -5,14 +5,12 @@ document.addEventListener("DOMContentLoaded", () => {
   // Write JS Code Here!
   const theme = localStorage.getItem("theme");
   const body = document.body;
-  if (theme) {
-    theme === "dark" && body.classList.add(theme);
-  } else {
+  if (!theme) {
     localStorage.setItem("theme", "light");
   }
-  window.addEventListener("load", () => {
-    setTimeout(() => (body.style.visibility = "visible"), 80);
-  });
+
+  body.classList.toggle("dark", theme === "dark");
+  setTimeout(() => (body.style.visibility = "visible"), 300);
 });
 
 // 4. 토글 버튼을 클릭하면 로컬 스토리지에 테마를 저장하고 저장된 테마를 기준으로 다시 렌더링한다.

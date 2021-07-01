@@ -158,6 +158,9 @@ Window.localStorage 사용
 - localStorage.clear();
   - localStorage에 저장된 모든 key, value를 제거
 
+flash of incorrect theme, FOIT 은 테마가 변경되면서 화면이 깜빡거리는 현상이다. 이를 해결하기 위해서 테마가 적용되기전 body의 visibility를 hidden으로 적용한다.
+transition 까지 고려하여 setTimeout 콜백으로 visibility 를 visible로 설정하면 깜빡거리는 현상이 사라진다.
+
 ## React
 
 **./principal_1_jsx-and-react-element**
