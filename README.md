@@ -165,6 +165,14 @@ React element 의 props 프로퍼티에는 자식 element를 나타내는 childr
 
 재귀적으로 render 함수 호출하며, appendChild를 후위로 처리해준다.
 
+**./principal_3_state/React.js**
+
+Component 클래스의 setState 메서드 구현
+
+**memo**
+
+원래 React의 setState 메서드는 비동기적으로 병렬 처리되는 코드가 있다.
+
 ## Redux
 
 **./principal_13_redux**
