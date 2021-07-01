@@ -153,6 +153,18 @@ jsx 어노테이션(@jsx) 를 기술하면 바벨에서 어떤 노드를 jsx로 
 
 createElement의 세번째 인수인 children에서, 각 child 가 텍스트일지 노드일지 알 수 없다. 그래서 map 고차함수로 createTextElement를 적용할 value를 구분한다.
 
+**./principal_2_rendering/question/index.js**
+
+ReactDOM.render() 메서드를 구현한다.
+
+**memo**
+
+React.createElement 메서드는 일반 객체인 React element를 생성하며, jsx 문법 사용시 babel에 의해 jsx 가 React element로 변환된다. 일반 객체인 React element를 브라우저 dom으로 변환하기 위해 ReactDOM.render 메서드를 사용한다.
+
+React element 의 props 프로퍼티에는 자식 element를 나타내는 children 프로퍼티와 자신의 요소에 대한 dom attribute 등의 key,value 들이 포함되어 있다. key 와 value 형태의 값이므로 렌더링 시 props 프로퍼티에 대한 처리를 위해 Object.entries와 배열 고차함수 reduce를 사용한다.
+
+재귀적으로 render 함수 호출하며, appendChild를 후위로 처리해준다.
+
 ## Redux
 
 **./principal_13_redux**
