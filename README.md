@@ -131,11 +131,11 @@ scrollTop(스크롤된 높이) 과 clientHeight(뷰의 높이) 의 합이 scroll
 
 토글 버튼을 클릭하면 테마가 뷰에 반영되도록 구현
 
-[js로 구현(로컬스토리지)](./4_dark-mode/solution/1.js-1/index.js)
+[js로 구현(로컬스토리지)](./4_dark-mode/question/1.js-1/index.js)
 
-[js로 구현(사용자 OS 테마)](./4_dark-mode/solution/2.js-2/index.js)
+[js로 구현(사용자 OS 테마)](./4_dark-mode/question/2.js-2/index.js)
 
-[react로 구현](./4_dark-mode/solution/3.react/src/App.js)
+[react로 구현](./4_dark-mode/question/3.react/src/App.js)
 
 **memo**
 
