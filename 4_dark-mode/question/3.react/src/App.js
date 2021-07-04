@@ -6,11 +6,14 @@ import Article from "./components/Article";
 import GlobalStyle from "./components/GlobalStyle";
 import { ThemeProvider } from "styled-components";
 import theme from "./style/theme";
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import useDark from "./hooks/useDark";
 
 function App() {
-  const [dark, setDark] = useState(false);
+  const [dark, setDark] = useDark();
   const onClick = () => {
+    console.log(localStorage);
+
     setDark(!dark);
   };
 
