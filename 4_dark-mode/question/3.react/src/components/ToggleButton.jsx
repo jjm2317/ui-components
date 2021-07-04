@@ -1,6 +1,11 @@
 import React from "react";
 import styled from "styled-components";
+import { library } from "@fortawesome/fontawesome-svg-core";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faSun, faMoon } from "@fortawesome/free-solid-svg-icons";
 
+library.add(faSun, faMoon);
+console.log(library);
 const Button = styled.div`
   position: relative;
   width: 100px;
@@ -12,7 +17,7 @@ const Button = styled.div`
 const Switch = styled.div`
   position: absolute;
   top: 2px;
-  left: 2px;
+  left: ${({ theme, dark }) => (dark ? theme.dark.switchLeft : 2)}px;
   /* toggle => left: 52px */
   width: 46px;
   height: 46px;
@@ -23,7 +28,8 @@ const Switch = styled.div`
 
 const Text = styled.div`
   display: flex;
-  background-color: #3dbf87;
+  background-color: ${({ theme, dark }) =>
+    dark ? theme.dark.buttonTextBgc : "#3dbf87"};
   border-radius: 25px;
   box-shadow: 2px 2px 5px 0 rgba(50, 50, 50, 0.75);
   transition: background-color 0.3s;
@@ -36,16 +42,26 @@ const TextOnOff = styled.div`
   color: #fff;
 `;
 
-const ToggleButton = () => {
+const ToggleButton = ({ onClick, dark }) => {
+  console.log(faMoon);
+
   return (
-    <Button>
-      <Switch></Switch>
-      <Text>
+    <Button onClick={onClick}>
+      <Switch dark={dark}></Switch>
+      <Text dark={dark}>
         <TextOnOff>
-          <i className="far fa-sun fa-lg"></i>
+          <FontAwesomeIcon
+            // icon={["fa-sun", "far", "fa-lg"]}
+            icon={faSun}
+            // className="far fa-sun fa-lg"
+          ></FontAwesomeIcon>
         </TextOnOff>
         <TextOnOff>
-          <i className="far fa-moon fa-lg"></i>
+          <FontAwesomeIcon
+            icon={faMoon}
+            // icon={"moon"}
+            // className="far fa-moon fa-lg"
+          ></FontAwesomeIcon>
         </TextOnOff>
       </Text>
     </Button>
