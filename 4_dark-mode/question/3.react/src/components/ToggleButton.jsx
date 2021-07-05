@@ -1,11 +1,7 @@
 import React from "react";
 import styled from "styled-components";
-import { library } from "@fortawesome/fontawesome-svg-core";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faSun, faMoon } from "@fortawesome/free-solid-svg-icons";
+import { FaSun, FaMoon } from "react-icons/fa";
 
-library.add(faSun, faMoon);
-console.log(library);
 const Button = styled.div`
   position: relative;
   width: 100px;
@@ -36,32 +32,24 @@ const Text = styled.div`
 `;
 
 const TextOnOff = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: center;
   width: 50%;
-  line-height: 50px;
-  text-align: center;
+  height: 50px;
   color: #fff;
 `;
 
 const ToggleButton = ({ onClick, dark }) => {
-  console.log(faMoon);
-
   return (
     <Button onClick={onClick}>
       <Switch dark={dark}></Switch>
       <Text dark={dark}>
         <TextOnOff>
-          <FontAwesomeIcon
-            // icon={["fa-sun", "far", "fa-lg"]}
-            icon={faSun}
-            // className="far fa-sun fa-lg"
-          ></FontAwesomeIcon>
+          <FaSun size="24" />
         </TextOnOff>
         <TextOnOff>
-          <FontAwesomeIcon
-            icon={faMoon}
-            // icon={"moon"}
-            // className="far fa-moon fa-lg"
-          ></FontAwesomeIcon>
+          <FaMoon size="24" />
         </TextOnOff>
       </Text>
     </Button>

@@ -163,6 +163,23 @@ transition 까지 고려하여 setTimeout 콜백으로 visibility 를 visible로
 
 운영체제 레벨에서 다크모드를 설정할 수 있는데, 이를 감지하기위해 @media(prefers-color-scheme) 나 window.matchMedia('(prefers-color-scheme: dark)')를 사용할 수 있다.
 
+바닐라 js와 리액트의 차이
+
+js
+
+- body 요소에 클래스를 탈부착 하는 방식으로 구현
+
+react
+
+- styled component 에서 제공하는 ThemeProvider 사용
+
+ThemeProvider은 contextAPI 기반으로 동작한다.
+ThemeProvider 에서 제공하는 theme props는 styeld componenet를 사용하는 모든 하위 컴포넌트에서 theme props를 받아올 수 있다.
+
+styled componenet 의 createGlobalStyle 을 통해 전역 스타일을 만들 수 있다.
+
+react-icons 라이브러리를 사용하면 fontawesome을 포함한 여러 아이콘을 사용할 수 있다.
+
 ## React
 
 **./principal_1_jsx-and-react-element**
