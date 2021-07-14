@@ -200,6 +200,11 @@ start, stop, reset기능이 있는 스탑와치 구현
 
 **memo**
 
+- css 리뷰
+  모달 창과 모달배경은 z-index에 양수 값을 바인딩하고 position 속성에 absolute 값을 바인딩함으로서 동작한다.
+  모달 배경은 left, top에 0, width, height에 100%를 줌으로서 화면을 차지하도록한다.
+  모달창은 opacity와 pointer-events를 비활성화상태로 초기화한다. 스크린리더등의 보조기술로 모달을 읽을 수 있어야 하기 때문이다.
+
 ## React
 
 **./principal_1_jsx-and-react-element**

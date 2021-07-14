@@ -7,13 +7,10 @@ const BodyBlackoutStyle = styled.div`
   top: 0;
   width: 100%;
   height: 100%;
-  background-color: rgba(0, 0, 0, .65);
-  display: ${props => props.isVisible ? "block" : "none" };
+  background-color: rgba(0, 0, 0, 0.65);
+  display: ${(props) => (props.isVisible ? "block" : "none")};
 `;
 
-export default function BodyBlackout({ isVisible  }){
-  return <BodyBlackoutStyle 
-    isVisible={isVisible} 
-    onClick={ }
-  />
+export default function BodyBlackout({ isVisible, onSetIsVisible }) {
+  return <BodyBlackoutStyle isVisible={isVisible} onClick={onSetIsVisible} />;
 }
