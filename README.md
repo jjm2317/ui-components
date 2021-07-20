@@ -190,6 +190,14 @@ start, stop, reset기능이 있는 스탑와치 구현
 
 [React로 구현](5_stopwatch1/question/2.react/src/App.js)
 
+## Tabs
+
+탭메뉴 구현
+
+[js로 구현](6_tabs/qustion/q1_js/src/app.js)
+
+[React로 구현](6_tabs/qustion/q2_react/src/App.js)
+
 ## Modal Window
 
 **./15_modal_window**
