@@ -46,7 +46,7 @@ body {
 .glider {
   position: absolute;
   top: 0;
-  left: 200px;
+  left: var(--tab-width);
   height: 60px;
   width: calc(var(--tab-width) * 1px);
   background-color: #fff;
