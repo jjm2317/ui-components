@@ -241,13 +241,24 @@ React element 의 props 프로퍼티에는 자식 element를 나타내는 childr
 
 재귀적으로 render 함수 호출하며, appendChild를 후위로 처리해준다.
 
-**./principal_3_state/React.js**
+**./principal_3_state/question/React.js**
 
 Component 클래스의 setState 메서드 구현
 
 **memo**
 
 원래 React의 setState 메서드는 비동기적으로 병렬 처리되는 코드가 있다.
+
+**./principal_11_react-router/question/index.js**
+
+리액트 라우터의 Router 와 Link를 구현해보기
+
+**memo**
+
+- Link 태그는 anchor 태그가 가질 수 있는 attribute 를 모두 가질 수 있도록 동작해야한다. 그러기 위해서 Link 태그가 구현 될 때 rest 파라미터로 props 를 전달 받는다.
+
+- Router 컴포넌트에서는 url 정보를 상태값으로 가지고 있다.
+  url의 변화할 때마다 상태값을 변화시켜주기 위해서 url 변화 이벤트를 캐치하는 event handler 를 등록한다. 즉 url 변화시마다 새롭게 상태를 등록해주며, 리렌더링된다.
 
 ## Redux
 
